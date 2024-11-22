@@ -1,0 +1,15 @@
+INDEX 
+    - Menjadi muka pertama visitor 
+    - Tombol start akan mengarahkan ke login->home2.php. 
+    - login dan signup berfungsi sewajarnya normal. 
+    - home akan mengarahkan ke home1.php. 
+    - materi akan mengarahkan ke materi.php 
+
+HOME1 
+    - Home untuk visitor
+
+HOME2 
+    - Home untuk member/user
+    
+MATERI
+    - tampilan muka untuk kelima page materi yang jika di klik gambarnya/judulnya akan mengarah ke page rumus terkait.  

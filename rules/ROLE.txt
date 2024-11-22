@@ -1,0 +1,20 @@
+Visitor
+    1. Visitor memasuki Index Page
+    2. "Start" akan mengarahkan Visitor ke "Login -> Home"
+    3. Visitor dapat mengakses materi-materi
+
+USER (member) (visitor yang login)
+    1. User memasuki Home Page
+    2. LOGIN PRIVILEGES
+
+ADMIN 
+    - Akses CRUD Latihan Soal
+    - Akses RD User & Laporan
+
+OWNER 
+    - ADMIN ++ CRUD
+
+LOGIN PRIVILEGES : 
+    1. Akses ke Kalkulator/Graph
+    2. Laporan user
+    3. Latihan Soal
