@@ -51,6 +51,36 @@
             color: black;
             font-size: 1em;
         }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px -8px 16px 0px rgba(131, 129, 129, 0.66);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -62,7 +92,17 @@
     <button onclick="location.href='login.php'">Start</button>
     <nav>
         <a href="home1.php">Home</a>
-        <a href="materi.php">Materi</a>
+        <div class="dropdown">
+        <a class="dropbtn">Materi</a>
+        <div class="dropdown-content">
+            <a href="regresi.php">Regresi Linear Sederhana</a>
+            <a href="eksponensial.php">Sebaran Peluang Distribusi Eksponensial</a>
+            <a href="poisson.php">⁠Sebaran Peluang Diskrit (Poisson)</a>
+            <a href="square.php">Chi Square</a>
+            <a href="frekuensi.php">Distribusi Frekuensi</a>
+        </div>
+    </div>
+        <a href="riwayat.php">Riwayat</a>
     </nav>
 </body>
 </html>

@@ -12,4 +12,12 @@ HOME2
     - Home untuk member/user
     
 MATERI
-    - tampilan muka untuk kelima page materi yang jika di klik gambarnya/judulnya akan mengarah ke page rumus terkait.  
+    - tampilan muka untuk kelima page materi yang jika di klik gambarnya/judulnya akan mengarah ke page rumus terkait.  "
+
+
+MATERI
+1. regresi linear sederhana 
+2. sebaran peluang distribusi eksponensial
+3. ⁠sebaran peluang diskrit (poisson)
+4. chi square
+5. distribusi frekuensi
