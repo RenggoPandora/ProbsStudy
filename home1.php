@@ -39,7 +39,6 @@ session_start();
         }
         .content {
             background-color: #bdbdbd;
-            background-opacity: 0.5;
             width: 100%;
             padding: 20px;
             box-sizing: border-box;

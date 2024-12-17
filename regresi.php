@@ -11,17 +11,18 @@ include ("connect.php");
     <title>PROBSTUDY</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #eaeaea;
         }
         .header {
             display: flex;
             justify-content: space-between;
-            background-color: #333;
+            background-color: #007bff;
             color: white;
-            padding: 10px 20px;
+            padding: 20px 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         .header nav {
             display: flex;
@@ -33,10 +34,13 @@ include ("connect.php");
         .header a {
             color: white;
             text-decoration: none;
-            padding: 10px;
+            padding: 12px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
         }
         .header a:hover {
-            background-color: #575757;
+            background-color: #0056b3;
+            transform: scale(1.05);
         }
         .dropdown {
             position: relative;
@@ -72,10 +76,11 @@ include ("connect.php");
             justify-content: center;   /* Tambahkan margin jika diperlukan */
         }
         .materi {
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            margin: 20px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            margin: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         .materi h2 {
             font-size: 24px;
@@ -105,26 +110,31 @@ include ("connect.php");
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         table, th, td {
             border: 1px solid #ccc;
         }
         th, td {
-            padding: 8px;
+            padding: 15px;
             text-align: center;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
         }
         .result {
             margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f8ff;
-            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
         }
         .kalkulator-regresi {
             margin-top: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
         .kalkulator-regresi label {
@@ -141,21 +151,31 @@ include ("connect.php");
         }
 
         .kalkulator-regresi button {
-            padding: 10px 15px;
-            background-color: #333;
+            padding: 15px 25px;
+            background-color: #28a745;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         .kalkulator-regresi button:hover {
-            background-color: #575757;
+            background-color: #218838;
+            transform: scale(1.05);
         }
         .data-inputs {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+        }
+        canvas {
+            font-family: 'Roboto', sans-serif;
+        aspect-ratio: 1 / 1;
+        display: block;
+        box-sizing: border-box;
+        height: 500px;
+        width: 500px;
         }
         </style>
 </head>
@@ -361,12 +381,21 @@ include ("connect.php");
                 <input type="number" id="predictedX">
             </div>
             <button id="calculateRegression">Hitung Regresi</button>
-            <div id="equationResult"></div>
+            <div id="equationResult">
             
-            <canvas id="regressionChart" width="200" height="200"></canvas>
-            <div id="predictionResult"></div>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
+                <canvas id="regressionChart" width="700" height="400"></canvas>
+                <div id="predictionResult">
+            
+                <!-- Form untuk menyimpan hasil -->
+                <form id="saveResultForm" method="POST" action="simpan_regresi.php">
+                <input type="hidden" id="regressionEquation" name="regressionEquation">
+                <input type="hidden" id="predictedValue" name="predictedValue">
+                <input type="hidden" id="regressionChartImage" name="regressionChartImage">
+                <button type="button" id="saveResultButton">Simpan Hasil</button>
+                </form>
+
+                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
                 document.getElementById('generateInputs').addEventListener('click', function() {
                     const count = document.getElementById('dataCount').value;
                     const dataInputs = document.getElementById('dataInputs');
@@ -408,12 +437,16 @@ include ("connect.php");
                     const b = numerator / denominator;
                     const a = averageY - b * averageX;
 
-                    // Menampilkan grafik regresi
-                    const ctx = document.getElementById('regressionChart').getContext('2d');
-                    const labels = data.map(item => item.X);
-                    const predictedY = labels.map(x => a + b * x);
+                    // Menampilkan grafik regresi di canvas
+                    const canvas = document.getElementById('regressionChart');
+                    const ctx = canvas.getContext('2d');
 
-                    new Chart(ctx, {
+                    // Ambil nilai predictedX dari input
+                    const predictedX = parseFloat(document.getElementById('predictedX').value) || 0;
+                    const labels = Array.from({ length: predictedX + 1 }, (_, i) => i); // Membuat label dari 0 hingga predictedX
+                    const predictedY = labels.map(x => a + b * x); // Menghitung nilai Y untuk setiap X
+
+                    const chart = new Chart(ctx, {
                         type: 'line',
                         data: {
                             labels: labels,
@@ -422,17 +455,21 @@ include ("connect.php");
                                     label: 'Data Asli',
                                     data: data.map(item => item.Y),
                                     borderColor: 'blue',
+                                    borderWidth: 5,
                                     fill: false,
                                 },
                                 {
                                     label: 'Regresi Linear',
                                     data: predictedY,
                                     borderColor: 'red',
+                                    borderWidth: 5,
                                     fill: false,
                                 }
                             ]
                         },
                         options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
                             scales: {
                                 y: {
                                     beginAtZero: true
@@ -441,18 +478,57 @@ include ("connect.php");
                         }
                     });
 
-                    // Menampilkan hasil prediksi
-                    const predictedXValue = parseFloat(document.getElementById('predictedX').value);
-                    const predictedYValue = a + b * predictedXValue;
-                    document.getElementById('predictionResult').innerText = `Prediksi untuk X = ${predictedXValue}: Y = ${predictedYValue.toFixed(2)}`;
+                    // Set the size of the chart
+                    const chartContainer = document.getElementById('regressionChart').parentNode;
+                    chartContainer.style.width = '80%'; // Set desired width
+                    chartContainer.style.height = '400px'; // Set desired height
+                    // Ensure the chart is fully rendered before capturing
+                    chart.update(); // Ensure the chart is updated
 
-                    // Menampilkan hasil Y = a + bX
-                    const equationResult = document.getElementById('equationResult');
-                    equationResult.innerText = `Hasil: Y = ${a.toFixed(2)} + ${b.toFixed(2)} * ${predictedXValue} = ${predictedYValue.toFixed(2)}`;
+                    // Use a timeout to ensure the chart is rendered before capturing
+                    setTimeout(() => {
+                        // Capture the chart as an image
+                        const imageData = chart.toBase64Image('image/jpeg'); // Specify JPEG format
+                        console.log(imageData); // Log the image data for debugging
+
+                        // Store image data in a hidden input
+                        document.getElementById('regressionChartImage').value = imageData;
+
+                        // Kumpulkan nilai X dan Y untuk disimpan
+                        const xValues = data.map(item => item.X).join(',');
+                        const yValues = data.map(item => item.Y).join(',');
+
+                        // Tambahkan nilai ke input tersembunyi
+                        const saveResultForm = document.getElementById('saveResultForm');
+                        
+                        // Create hidden input for x_values
+                        const xInput = document.createElement('input');
+                        xInput.type = 'hidden';
+                        xInput.name = 'x_values';
+                        xInput.value = xValues;
+                        saveResultForm.appendChild(xInput);
+
+                        // Create hidden input for y_values
+                        const yInput = document.createElement('input');
+                        yInput.type = 'hidden';
+                        yInput.name = 'y_values';
+                        yInput.value = yValues;
+                        saveResultForm.appendChild(yInput);
+
+                        // Do not submit the form here
+                    }, 100); // Adjust the timeout as necessary
+                });
+
+                // Add event listener for the "Simpan Hasil" button
+                document.getElementById('saveResultButton').addEventListener('click', function() {
+                    // Submit the form when the "Simpan Hasil" button is clicked
+                    document.getElementById('saveResultForm').submit();
                 });
             </script>
         <?php else: ?>
-            <p>Anda harus login untuk mengakses kalkulator regresi linear.</p>
+            <div class="login-message" style="text-align: center; margin: 20px; padding: 15px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px;">
+    <p>Anda harus login untuk mengakses kalkulator regresi linear.</p>
+</div>
         <?php endif; ?>
     </div>
 </div>
