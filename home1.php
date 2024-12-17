@@ -114,6 +114,11 @@ session_start();
             </div>
         </div>
         <a href="riwayat.php">RIWAYAT</a>
+        <?php if (isset($_SESSION['username'])): ?>
+            <a href="logout.php">LOGOUT</a>
+        <?php else: ?>
+            <a href="login.php">LOGIN</a>
+        <?php endif; ?>
     </nav>
 </div>
 
