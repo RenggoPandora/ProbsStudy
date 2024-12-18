@@ -11,7 +11,7 @@ if (isset($data['lambda'], $data['maxX'], $data['probabilities'])) {
     $probabilities = json_encode($data['probabilities']); // Mengonversi array probabilities ke JSON
 
     // Menyiapkan pernyataan SQL
-    $stmt = $conn->prepare("INSERT INTO laporan_poisson (lambda, max_x, probabilities) VALUES (?, ?, ?)");
+    $stmt = $connect->prepare("INSERT INTO laporan_poisson (lambda, max_x, probabilities) VALUES (?, ?, ?)");
     $stmt->bind_param("dis", $lambda, $maxX, $probabilities); // d untuk double, i untuk integer, s untuk string
 
     // Menjalankan pernyataan
@@ -26,7 +26,7 @@ if (isset($data['lambda'], $data['maxX'], $data['probabilities'])) {
     echo json_encode(["status" => "error", "message" => "Input tidak valid."]);
 }
 
-$conn->close();
+$connect->close();
 ?>
 
 <!DOCTYPE html>
