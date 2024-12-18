@@ -335,48 +335,139 @@ $connect->close();
             }
         }
 
-        .chart-container {
-            position: relative;
-            height: 300px;
-            width: 100%;
-            margin-top: 20px;
-        }
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin-top: 20px;
+}
 
-        .proyek .lambda-input,
-        .proyek .max-input {
-            width: 35%;
-            padding: 1.5rem;
-            font-size: 1.6rem;
-            color: var(--text-color);
-            background: var(--second-bg-color);
-            border-radius: .8rem;
-            margin: .7rem 0;
-            text-align: center;
-        }
+.proyek .histo-scroll{
+    /* scrollbar-width : none; */
+    height: max-content;
+    width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+    text-align: left;
+}
 
-        .proyek .max-input {
-            margin-bottom: 35px;
-        }
 
-        .proyek .button-proyek {
-            display: inline-block;
-            padding: 1rem 2.8rem;
-            background: var(--main-color);
-            border-radius: 4rem;
-            box-shadow: 0 0 1rem var(--main-color);
-            font-size: 1.6rem;
-            color: var(--bg-color);
-            letter-spacing: .1rem;
-            font-weight: 600;
-            margin-bottom: 50px;
-        }
-        .bar {
-            background-color: white; /* Change the bar color to white */
-        }
-        .probability-text {
-                color: #40E0D0; /* Turquoise color */
-                font-weight: bold;
-            }
+.proyek .lambda-input,
+.proyek .max-input{
+    width: 35%;
+    padding: 1.5rem;
+    font-size: 1.6rem;
+    color: #0000000;
+    background: var(--second-bg-color);
+    border-radius: .8rem;
+    margin: .7rem 0;
+    text-align: center;
+}
+
+.proyek .max-input{
+    margin-bottom: 35px;
+}
+
+.proyek .button-proyek{
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: var(--main-color);
+    border-radius: 4rem;
+    box-shadow: 0 0 1rem var(--main-color);
+    font-size: 1.6rem;
+    color: var(--second-bg-color);
+    letter-spacing: .1rem;
+    font-weight: 600;
+    margin-bottom: 50px;
+}
+
+.proyek .lambda-text,
+.proyek .max-text{
+    font-size: medium;
+}
+
+.proyek  .judul-proyek{
+    font-size: large;
+}
+.axis {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgb(255, 255, 255);
+}
+
+.y-axis {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: rgb(255, 255, 255);
+}
+
+.bar {
+    position: relative;
+    display: inline-block;
+    margin: 0 2px;
+    background: #49b1ac;
+    vertical-align: bottom;
+}
+
+.bar-label {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.probability-text {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5em; /* Ukuran font relatif terhadap lebar bar */
+    white-space: nowrap; /* Menjaga teks agar tidak mematahkan */
+}
+/* Add this CSS to your existing styles */
+.proyek label {
+    font-size: 1.6rem; /* Match font size with the theme */
+    color: var(--text-color); /* Use the theme text color */
+    margin-bottom: 0.5rem; /* Space between label and input */
+}
+
+.proyek input[type="number"] {
+    width: 35%; /* Match width with existing inputs */
+    padding: 1.5rem; /* Match padding with existing inputs */
+    font-size: 1.6rem; /* Match font size with the theme */
+    color: #000; /* Text color */
+    background: var(--second-bg-color); /* Background color */
+    border-radius: .8rem; /* Match border radius */
+    margin: .7rem 0; /* Space between inputs */
+    border: 1px solid #ccc; /* Add border for better visibility */
+}
+
+.proyek input[type="number"]:focus {
+    border-color: var(--main-color); /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}/* Add this CSS to your existing styles */
+.proyek button {
+    display: inline-block;
+    padding: 1rem 2.8rem; /* Padding for the button */
+    background: var(--main-color); /* Background color */
+    border-radius: 4rem; /* Rounded corners */
+    box-shadow: 0 0 1rem var(--main-color); /* Shadow effect */
+    font-size: 1.6rem; /* Font size */
+    color: var(--second-bg-color); /* Text color */
+    letter-spacing: .1rem; /* Letter spacing */
+    font-weight: 600; /* Font weight */
+    margin-top: 20px; /* Space above the button */
+    transition: background 0.3s, transform 0.3s; /* Transition effects */
+}
+
+.proyek button:hover {
+    background: #575757; /* Darker background on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
 
         .footer {
             flex-direction: column-reverse;
@@ -501,18 +592,43 @@ $connect->close();
 
     <!-- Bagian proyek -->
     <section class="proyek" id="proyek">
-    <h2 class="heading" style="font-size: 4rem; text-align: center;">ProbStudy<span> Proyek</span></h2>
+        <h2 class="heading">Proyek <span>Probstat</span></h2>
 
         <h2 class="judul-proyek">Sebaran Peluang Diskrit (Poisson)</h2>
 
         <label class="lambda-text" for="lambda">Nilai λ (rata-rata kejadian):</label> <br>
-        <input class="lambda-input" type="number" id="lambda" step="0.1" style="background-color: white; color: black;"> <br>
+        <input class="lambda-input" type="number" id="lambda" step="0.1"> <br>
         
-        <label class="max-text" for="maxX">Nilai maksimum x:</label> <br>
-        <input class="max-input" type="number" id="maxX" style="background-color: white; color: black;"> <br>
+        <label class="max-text" for="maxX">Nilai x:</label> <br>
+        <input class="max-input"type="number" id="maxX"> <br>
+        
         <button class="button-proyek" onclick="drawChart()">Buat Histogram</button>
         
+        <div class="histo-scroll">
         <div id="chart" class="chart-container"></div>
+        </div>
+
+        <h2 class="judul-hitung" style="font-size: 4rem; text-align: center;">Hitung Peluang</h2>
+
+        <label for="xValue">Nilai x:</label>
+        <input type="number" id="xValue">
+
+        <label for="aValue">Nilai a:</label>
+        <input type="number" id="aValue">
+
+        <br>
+
+        <label for="bValue">Nilai b:</label>
+        <input type="number" id="bValue">
+
+        <br>
+
+        <button onclick="calculateProbabilities()" >Hitung Peluang</button>
+
+        <div id="result_eq_x"></div>
+        <div id="result_leq_x"></div>
+        <div id="result_geq_x"></div>
+        <div id="result_interval"></div>
     </section>    
     <!-- Bagian proyek -->
 
@@ -528,157 +644,177 @@ $connect->close();
     <script src="https://unpkg.com/scrollreveal"></script>
     <script>
         // scroll section active link / Pindah Fungsi Class Pas di Scroll atau pindah slide
-        let sections = document.querySelectorAll('section');
-        let navLinks = document.querySelectorAll('header nav a');
+let sections = document.querySelectorAll('section');
+let navLinks = document.querySelectorAll('header nav a');
 
-        window.onscroll = () => {
-            sections.forEach(sec => {
-                let top = window.scrollY;
-                let offset = sec.offsetTop - 150;
-                let height = sec.offsetHeight;
-                let id = sec.getAttribute('id');
+window.onscroll = () => {
+    sections.forEach(sec => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 150;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id');
 
-                if(top >= offset && top < offset + height) {
-                    navLinks.forEach(links => {
-                        links.classList.remove('active');
-                        document.querySelector('header nav a[href*=' + id +']').classList.add('active');
-                    });
-                };
+        if(top >= offset && top < offset + height) {
+            navLinks.forEach(links => {
+                links.classList.remove('active');
+                document.querySelector('header nav a[href*=' + id +']').classList.add('active');
             });
-            // Sticky Navbar
-            let header = document.querySelector('header');
-
-            header.classList.toggle('sticky', window.scrollY > 100);
         };
+    });
+    // Sticky Navbar
+    let header = document.querySelector('header');
 
-        //proyek probabilitas dan statistika
+    header.classList.toggle('sticky', window.scrollY > 100);
 
-        // Fungsi untuk eksponensial
-        function exp(x) {
-            let sum = 1.0; // inisialisasi dengan 1
-            let term = 1.0;
-            for (let i = 1; i < 100; i++) {
-                term *= x / i;
-                sum += term;
-            }
-            return sum;
-        }
+    //Hapus toggle icon dan navbar ketika di klik navbar link(scroll)
+    menuIcon.classList.remove('bx-x');
+    navbar.classList.remove('active');
 
-        // Fungsi untuk pangkat
-        function pangkat(base, exponent) {
-            let result = 1;
-            for (let i = 0; i < exponent; i++) {
-                result *= base;
-            }
-            return result;
-        }
+};
 
-        // Parameter:
-        // lam - rata-rata kejadian dalam interval waktu tertentu
-        // x - jumlah kejadian yang terjadi
-        function poissonProbability(lam, x) {
-            return pangkat(lam, x) * exp(-lam) / factorial(x);
-        }
 
-        // Fungsi untuk menghitung faktorial dari sebuah bilangan
-        // Parameter:
-        // n - bilangan yang akan dihitung faktorialnya
-        function factorial(n) {
-            let result = 1;
-            for (let i = 2; i <= n; i++) {
-                result *= i;
-            }
-            return result;
-        }
 
-        // Fungsi untuk menggambar grafik distribusi Poisson
-        // Mengambil nilai lambda dan maxX dari input pengguna, menghitung peluang, dan menampilkan grafik
-        php:ProbsStudy-main/poisson.php
-// ... existing code ...
-function drawChart() {
-    let lam = parseFloat(document.getElementById('lambda').value); // Mengambil nilai lambda dari input pengguna
-    let maxX = parseInt(document.getElementById('maxX').value); // Mengambil nilai maxX dari input pengguna
 
-    // Validasi input
-    if (isNaN(lam) || isNaN(maxX) || maxX < 0) {
-        alert("Silakan masukkan nilai yang valid untuk λ dan maksimum x.");
-        return; // Keluar dari fungsi jika input tidak valid
+
+//proyek probabilitas dan statistika
+
+
+// Fungsi untuk eksponensial
+function exp(x) {
+    let sum = 1.0; // inisialisasi dengan 1
+    let term = 1.0;
+    for (let i = 1; i < 100; i++) {
+        term *= x / i;
+        sum += term;
     }
+    return sum;
+}
 
+// Fungsi untuk pangkat
+function pangkat(base, exponent) {
+    let result = 1;
+    for (let i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    return result;
+}
+
+// Parameter:
+// lam - rata-rata kejadian dalam interval waktu tertentu
+// x - jumlah kejadian yang terjadi
+function poissonProbability(lam, x) {
+    return pangkat(lam, x) * exp(-lam) / factorial(x);
+}
+
+
+
+
+// Fungsi untuk menghitung faktorial dari sebuah bilangan
+// Parameter:
+// n - bilangan yang akan dihitung faktorialnya
+function factorial(n) {
+    let result = 1;
+    for (let i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+// Fungsi untuk menghitung peluang Poisson kumulatif p(X <= x)
+function cumulativePoisson(lam, x) {
+    let cumulative = 0;
+    for (let i = 0; i <= x; i++) {
+        cumulative += poissonProbability(lam, i);
+    }
+    return cumulative;
+}
+
+// Fungsi untuk menghitung peluang Poisson kumulatif p(X >= x)
+function upperCumulativePoisson(lam, x) {
+    return 1 - cumulativePoisson(lam, x - 1);
+}
+
+// Fungsi untuk menggambar grafik distribusi Poisson
+// Mengambil nilai lambda dan maxX dari input pengguna, menghitung peluang, dan menampilkan grafik
+function drawChart() {
+    let lam = parseFloat(document.getElementById('lambda').value);
     let probabilities = [];
-    for (let x = 0; x <= maxX; x++) {
-        probabilities.push(poissonProbability(lam, x)); // Menghitung peluang untuk setiap x dan menyimpannya dalam array
+    let maxX = parseInt(document.getElementById('maxX').value); // Mengambil nilai maksimum x dari input pengguna
+    let maxProbability = 0; // Untuk menemukan probabilitas maksimum
+
+    // Loop untuk menghitung probabilitas hingga mencapai 0
+    for (let x = 0; ; x++) {
+        let prob = poissonProbability(lam, x);
+        if (prob <= 0) {
+            break; // Keluar dari loop ketika probabilitas menjadi 0
+        }
+        probabilities.push(prob);
+        if (prob > maxProbability) {
+            maxProbability = prob;
+        }
     }
 
     let chart = document.getElementById('chart');
-    chart.innerHTML = ''; // Mengosongkan konten chart sebelumnya
+    chart.innerHTML = '';
 
-    // Menentukan tinggi maksimum untuk skala bar
-    let maxProbability = Math.max(...probabilities);
-    if (maxProbability === 0) {
-        alert("Tidak ada probabilitas yang dihitung. Silakan periksa input Anda.");
-        return; // Keluar jika tidak ada probabilitas yang dihitung
-    }
-    let scaleFactor = 300 / maxProbability; // Tinggi maksimum container dibagi dengan peluang maksimum
+    let sumbuY = document.createElement('div');
+    sumbuY.className = 'y-axis';
+    chart.appendChild(sumbuY);
 
-    // Create X and Y axes
-    let xAxis = document.createElement('div');
-    xAxis.style.borderTop = '2px solid #40E0D0'; // Set color to turquoise
-    xAxis.style.width = '100%';
-    xAxis.style.position = 'absolute';
-    xAxis.style.bottom = '0';
-    chart.appendChild(xAxis);
+    let sumbuX = document.createElement('div');
+    sumbuX.className = 'axis';
+    sumbuX.style.bottom = '-2px';
+    chart.appendChild(sumbuX);
 
-    let yAxis = document.createElement('div');
-    yAxis.style.borderLeft = '2px solid #40E0D0'; // Set color to turquoise
-    yAxis.style.height = '100%';
-    yAxis.style.position = 'absolute';
-    yAxis.style.left = '0';
-    chart.appendChild(yAxis);
+    let scaleFactor = 300 / maxProbability;
 
+    // Menggambar histogram berdasarkan probabilitas yang dihitung
     for (let i = 0; i < probabilities.length; i++) {
         let barContainer = document.createElement('div');
         barContainer.style.display = 'inline-block';
         barContainer.style.width = '30px';
-        barContainer.style.position = 'relative'; // Set position to relative for absolute positioning of text
 
         let bar = document.createElement('div');
         bar.className = 'bar';
-        bar.style.height = (probabilities[i] * scaleFactor) + 'px'; // Skala tinggi bar sesuai dengan faktor skala
+        bar.style.height = (probabilities[i] * scaleFactor) + 'px';
         bar.style.width = '80%';
-        bar.style.marginBottom = '0'; // Menghilangkan margin bawah
+        bar.style.marginBottom = '0';
+        
+        // Tambahkan warna merah untuk bar dengan nilai maksimum x
+        if (i === maxX) {
+            bar.style.backgroundColor = 'red';
+        }
+        
         barContainer.appendChild(bar);
 
-        // Create a text element to display the probability
-        let probabilityText = document.createElement('div');
-        probabilityText.className = 'probability-text'; // Add class for styling
-        probabilityText.style.position = 'absolute'; // Position it absolutely
-        probabilityText.style.bottom = '100%'; // Position it above the bar
-        probabilityText.style.left = '50%'; // Center it horizontally
-        probabilityText.style.transform = 'translateX(-50%)'; // Adjust for centering
-        probabilityText.innerText = probabilities[i].toFixed(4); // Display the probability with 4 decimal places
-        barContainer.appendChild(probabilityText); // Append the text to the bar container
+        let label = document.createElement('div');
+        label.className = 'bar-label';
+        label.innerText = i;
+        barContainer.appendChild(label);
 
-        chart.appendChild(barContainer); // Append the barContainer to the chart
+        let textProbability = document.createElement('div');
+        textProbability.className = 'probability-text';
+        textProbability.innerText = probabilities[i].toFixed(4);
+        bar.appendChild(textProbability);
+
+        chart.appendChild(barContainer);
     }
-
-    // Kirim data ke server
-    fetch('save_results.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ lambda: lam, maxX: maxX, probabilities: probabilities }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Sukses:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
 }
-// ... existing code ...
+function calculateProbabilities() {
+    let lam = parseFloat(document.getElementById('lambda').value);
+    let x = parseInt(document.getElementById('xValue').value);
+    let a = parseInt(document.getElementById('aValue').value);
+    let b = parseInt(document.getElementById('bValue').value);
+    
+    let p_x_eq_x = poissonProbability(lam, x);
+    let p_x_leq_x = cumulativePoisson(lam, x);
+    let p_x_geq_x = upperCumulativePoisson(lam, x);
+    let p_interval = cumulativePoisson(lam, b) - cumulativePoisson(lam, a - 1);
+    
+    document.getElementById('result_eq_x').innerText = 'p(X = ' + x + ') = ' + p_x_eq_x.toFixed(4);
+    document.getElementById('result_leq_x').innerText = 'p(X <= ' + x + ') = ' + p_x_leq_x.toFixed(4);
+    document.getElementById('result_geq_x').innerText = 'p(X >= ' + x + ') = ' + p_x_geq_x.toFixed(4);
+    document.getElementById('result_interval').innerText = 'p(' + a + ' <= X <= ' + b + ') = ' + p_interval.toFixed(4);
+}
 </script>
 </body>
 </html>
