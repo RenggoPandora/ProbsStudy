@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 22, 2024 at 11:03 AM
+-- Generation Time: Dec 19, 2024 at 05:28 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -31,6 +31,13 @@ CREATE TABLE `admin` (
   `username` varchar(25) NOT NULL,
   `password` varbinary(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`username`, `password`) VALUES
+('admin1', 0x24327924313024786a7544646d69362e59533864504c706d30577a6a4f43414430375667477370466d47736835782f58696446395a6f784e7a732e61);
 
 -- --------------------------------------------------------
 
@@ -78,11 +85,19 @@ CREATE TABLE `laporan_poisson` (
 --
 
 CREATE TABLE `laporan_regresi` (
-  `id_laporan` varchar(5) NOT NULL,
+  `id_laporan` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `username` varchar(25) NOT NULL,
   `hasil` varchar(255) NOT NULL,
-  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `chart_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `laporan_regresi`
+--
+
+INSERT INTO `laporan_regresi` (`id_laporan`, `username`, `hasil`, `tanggal`, `chart_image`) VALUES
+('LRG01', 'renggo', 'y = 1.4x + 0.8', '2024-12-17 06:17:43', 'images/LRG01.jpg');
 
 -- --------------------------------------------------------
 
@@ -143,9 +158,16 @@ CREATE TABLE `soal_poisson` (
 
 CREATE TABLE `soal_regresi` (
   `id_soal` varchar(5) NOT NULL,
-  `soal` varchar(255) NOT NULL,
-  `jawaban` varchar(255) NOT NULL
+  `soal` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `soal_regresi`
+--
+
+INSERT INTO `soal_regresi` (`id_soal`, `soal`, `jawaban`) VALUES
+('SRG01', 'Diberikan data pengamatan berikut tentang jumlah iklan (X) dan jumlah penjualan (Y) dalam satu bulan:\r\nIklan (X): 1, 2, 3, 4, 5\r\nPenjualan (Y): 2, 4, 5, 6, 8 Hitunglah persamaan regresi linear sederhana dari data tersebut!', 'Persamaan regresi sederhana adalah Y = a + bX, di mana:\r\na adalah intercept, dan\r\nb adalah koefisien regresi.\r\nBerdasarkan perhitungan, didapatkan:\r\na = 0.8, b = 1.4 Maka, persamaan regresinya adalah: Y = 0.8 + 1.4X.');
 
 -- --------------------------------------------------------
 
@@ -170,6 +192,13 @@ CREATE TABLE `user` (
   `email` varchar(50) NOT NULL,
   `password` varbinary(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`username`, `email`, `password`) VALUES
+('renggo', 'renggo@gmail.com', 0x243279243130246b4c4b4e43506a393355554d6232523975664e534f2e47717131557a594666464248495238747a64316d4c6f74516d576f31344b53);
 
 --
 -- Indexes for dumped tables
