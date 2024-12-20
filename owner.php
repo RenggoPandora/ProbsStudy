@@ -71,6 +71,21 @@ if (isset($_GET['delete_soal'])) {
         echo "Error: " . mysqli_error($connect);
     }
 }
+
+// Fetch feedback from the database
+$feedback_query = "SELECT * FROM umpanbalik";
+$feedback_result = $connect->query($feedback_query); // Ensure this line is added
+
+// Logic to update feedback status
+if (isset($_GET['update_status']) && isset($_GET['status'])) {
+    $id = $_GET['update_status']; // Menggunakan 'id' alih-alih 'id_feedback'
+    $status = $_GET['status'];
+    $update_query = "UPDATE umpanbalik SET status = ? WHERE id = ?"; // Menggunakan 'id'
+    $stmt = $connect->prepare($update_query);
+    $stmt->bind_param("si", $status, $id); // Menggunakan 'id'
+    $stmt->execute();
+    header("Location: owner.php"); // Redirect after updating status
+}
 ?>
 
 <!DOCTYPE html>
@@ -79,65 +94,127 @@ if (isset($_GET['delete_soal'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .box {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            width: 30%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    halo owner
+    <h1 style="text-align: center;">PROBSTUDY</h1>
+    <div class="container">
+        <!-- Daftar User -->
+        <div class="box">
+            <h2>Daftar User</h2>
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Aksi</th>
+                </tr>
+                <?php while ($user = $user_result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($user['username']); ?></td>
+                    <td><?php echo htmlspecialchars($user['email']); ?></td>
+                    <td><?php echo htmlspecialchars($user['password']); ?></td>
+                    <td><a href="?delete_user=<?php echo $user['username']; ?>">Delete</a></td>
+                </tr>
+                <?php endwhile; ?>
+            </table>
+        </div>
 
-    <!-- Menampilkan tabel user -->
-    <h2>User Table</h2>
-    <table border="1">
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Action</th>
-        </tr>
-        <?php while ($user = $user_result->fetch_assoc()): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($user['username']); ?></td>
-            <td><?php echo htmlspecialchars($user['email']); ?></td>
-            <td><?php echo htmlspecialchars($user['password']); ?></td>
-            <td><a href="?delete_user=<?php echo $user['username']; ?>">Delete</a></td>
-        </tr>
-        <?php endwhile; ?>
-    </table>
+        <!-- Daftar Admin -->
+        <div class="box">
+            <h2>Daftar Admin</h2>
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Aksi</th>
+                </tr>
+                <?php while ($admin = $admin_result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($admin['username']); ?></td>
+                    <td><?php echo htmlspecialchars($admin['password']); ?></td>
+                    <td><a href="?delete_admin=<?php echo $admin['username']; ?>">Delete</a></td>
+                </tr>
+                <?php endwhile; ?>
+            </table>
+        </div>
+    </div>
 
-    <!-- Menampilkan tabel admin -->
-    <h2>Admin Table</h2>
-    <table border="1">
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>Action</th>
-        </tr>
-        <?php while ($admin = $admin_result->fetch_assoc()): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($admin['username']); ?></td>
-            <td><?php echo htmlspecialchars($admin['password']); ?></td>
-            <td><a href="?delete_admin=<?php echo $admin['username']; ?>">Delete</a></td>
-        </tr>
-        <?php endwhile; ?>
-    </table>
-
-    <!-- Menampilkan tabel semua soal -->
-    <h2>All Questions</h2>
-    <table border="1">
-        <tr>
-            <th>ID Soal</th>
-            <th>Soal</th>
-            <th>Jawaban</th>
-            <th>Aksi</th>
-        </tr>
-        <?php foreach ($results as $result): ?>
-            <?php while ($row = $result->fetch_assoc()): ?>
+    <!-- Umpan Balik -->
+    <div class="box">
+        <h2>Umpan Balik</h2>
+        <table>
             <tr>
-                <td><?php echo htmlspecialchars($row['id_soal']); ?></td>
-                <td><?php echo htmlspecialchars($row['soal']); ?></td>
-                <td><?php echo htmlspecialchars($row['jawaban']); ?></td>
-                <td><a href="?delete_soal=<?php echo $row['id_soal']; ?>">Delete</a></td>
+                <th>No</th>
+                <th>Umpan Balik</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+            <?php while ($feedback = $feedback_result->fetch_assoc()): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($feedback['id']); ?></td>
+                <td><?php echo htmlspecialchars($feedback['umpan_balik']); ?></td>
+                <td><?php echo htmlspecialchars($feedback['status'] ?? "Belum Diproses"); ?></td>
+                <td><a href="?update_status=<?php echo $feedback['id']; ?>&status=processed">Update</a></td>
             </tr>
             <?php endwhile; ?>
-        <?php endforeach; ?>
-    </table>
+        </table>
+    </div>
+
+    <!-- Soal & Jawaban -->
+    <div class="box">
+        <h2>Soal & Jawaban</h2>
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Soal</th>
+                <th>Aksi</th>
+            </tr>
+            <?php foreach ($results as $result): ?>
+                <?php while ($soal = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($soal['id_soal']); ?></td>
+                    <td><?php echo htmlspecialchars($soal['soal']); ?></td>
+                    <td><a href="?delete_soal=<?php echo $soal['id_soal']; ?>">Delete</a></td>
+                </tr>
+                <?php endwhile; ?>
+            <?php endforeach; ?>
+        </table>
+    </div>
 </body>
 </html>
