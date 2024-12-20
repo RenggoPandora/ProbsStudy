@@ -357,7 +357,7 @@ $connect->close();
     width: 35%;
     padding: 1.5rem;
     font-size: 1.6rem;
-    color: #0000000;
+    color: #00000;
     background: var(--second-bg-color);
     border-radius: .8rem;
     margin: .7rem 0;
