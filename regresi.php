@@ -443,7 +443,7 @@ include ("connect.php");
 
                     // Ambil nilai predictedX dari input
                     const predictedX = parseFloat(document.getElementById('predictedX').value) || 0;
-                    const labels = Array.from({ length: predictedX + 1 }, (_, i) => i); // Membuat label dari 0 hingga predictedX
+                    const labels = data.map(item => item.X); // Menggunakan nilai X dari data input
                     const predictedY = labels.map(x => a + b * x); // Menghitung nilai Y untuk setiap X
 
                     const chart = new Chart(ctx, {
