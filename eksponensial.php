@@ -41,6 +41,7 @@ include("connect.php");
                 <a href="riwayat.php">RIWAYAT</a>
             </div>
             <div class="button">
+                <a href="profil.php"><button>PROFil</button></a>
                 <?php if (isset($_SESSION['username'])): ?>
                     <a href="logout.php"><button>LOGout</button></a>
                 <?php else: ?>
@@ -446,6 +447,25 @@ include("connect.php");
             <!-- ahir href konten -->
         </div>
         <!-- ahir konten -->
+        <div class="footer">
+            <div class="kanan">
+                <img src="assets/logo.png" alt="ProbStudy Logo">
+                <p>© 2024 ProbStudy. All rights reserved.</p>
+            </div>
+            <div class="kiri">
+                <h6>By</h6>
+                <div class="list">
+                    <ul>
+                        <li>Haniel</li>
+                        <li>Renggo</li>
+                        <li>Panca</li>
+                        <li>Alfaen</li>
+                        <li>Naufal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 

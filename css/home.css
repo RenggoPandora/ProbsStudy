@@ -1,0 +1,154 @@
+body {
+    background-color: white;
+}
+
+.container-logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.container-logo .logo {
+    font-weight: 800;
+    font-size: 200px;
+    color: white;
+    text-shadow: 3px 3px 0 black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black;
+}
+
+.container-logo .logo span {
+    color: black;
+}
+
+.content {
+    width: 96.5%;
+    height: auto;
+    padding: 30px;
+    background-color: #eaeaea;
+}
+
+ h2 {
+    font-size: 30px;
+    font-family: 'Lalezar', sans-serif;
+    font-style: normal;
+    color: black;
+}
+
+.content .teks {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+.teks p {
+    width: 48%;
+    font-size: 20px;
+    text-align: justify;
+}
+
+h3 {
+    width: 100%;
+    font-size: 30px;
+    font-family: 'Lalezar', sans-serif;
+    font-style: normal;
+    color: black;
+    text-align: end;
+    padding-top: 30px;
+}
+
+.card-a {
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 40px 10px;
+    justify-content: space-around;
+    gap: 20px;
+    align-items: center;
+}
+
+.card-a a {
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    text-decoration: none;
+    font-family: 'Lalezar', sans-serif;
+    font-style: normal;
+    color: black;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    /* Animasi untuk hover */
+}
+
+.card-a a:hover {
+    background-color: black;
+    /* Warna latar belakang saat hover */
+    color: white;
+    /* Warna teks saat hover */
+    transform: scale(1.1);
+    /* Perbesar sedikit elemen */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* Tambahkan bayangan */
+    border-color: white;
+    /* Ubah warna border saat hover */
+}
+
+.wrapper {
+    width: 96.5%;
+    height: auto;
+    padding: 40px 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper .form{
+    width: 90%;
+    height: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    background-color: #eaeaea;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.form textarea {
+    width: 98%;
+    height: 150px;
+    resize: none;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form .form-button{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    padding-top: 20px;
+}
+
+.form-button button{
+    width: 150px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.form-button button:hover{
+    background-color: black;
+    color: white;
+}

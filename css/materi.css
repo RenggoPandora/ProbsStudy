@@ -14,7 +14,7 @@ body {
     flex-direction: column;
 }
 
-.container .navbar {
+ .navbar {
     position: fixed;
     top: 0;
     right: 0;
@@ -48,7 +48,7 @@ body {
     font-style: normal;
     color: black;
     text-decoration: none;
-    padding: 12px 20px;
+    padding: 12px 15px;
     border-radius: 5px;
     transition: background-color 0.3s, transform 0.2s;
 }
@@ -129,6 +129,7 @@ h1 {
 
 p {
     font-size: 15px;
+    text-align: justify;
 }
 
 .main-main .pengertian {
@@ -293,18 +294,73 @@ th {
     font-size: 15px;
 }
 
+.footer {
+    width: 100%;
+    height: auto;
+    /* Sesuaikan tinggi otomatis */
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10%;
+    background-color: black;
+    color: white;
+    box-sizing: border-box;
+    /* Pastikan padding dihitung dalam ukuran elemen */
+}
+
+.footer .kanan {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.footer .kanan img {
+    width: 150px;
+    /* Sesuaikan agar tidak terlalu besar */
+    height: auto;
+}
+
+.footer .kiri {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    gap: 20px;
+}
+
+.footer .kiri h6 {
+    margin: 0 0 5px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.footer .list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer .list ul li {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+
 /* css materi eksponensial */
-.card .hasil{
+.card .hasil {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.hasil .svg{
+.hasil .svg {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 /* css materi eksponensial */
