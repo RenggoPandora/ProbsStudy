@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 19, 2024 at 05:28 AM
+-- Generation Time: Dec 20, 2024 at 06:52 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -115,15 +115,33 @@ CREATE TABLE `laporan_square` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `owner`
+--
+
+CREATE TABLE `owner` (
+  `username` varchar(25) NOT NULL,
+  `password` varbinary(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `owner`
+--
+
+INSERT INTO `owner` (`username`, `password`) VALUES
+('owner1', 0x243279243130244b634a5768675552637430384b6e396631507a6850753474452e4a4d362e68634d7a664971637453615a494e616561316e5756346d);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `soal_eksponensial`
 --
 
 CREATE TABLE `soal_eksponensial` (
   `id_soal` varchar(5) NOT NULL,
-  `soal` varchar(255) NOT NULL,
-  `jawaban1` varchar(255) NOT NULL,
-  `jawaban2` varchar(255) NOT NULL,
-  `jawaban3` varchar(255) NOT NULL
+  `soal` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jawaban1` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jawaban2` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jawaban3` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -134,8 +152,8 @@ CREATE TABLE `soal_eksponensial` (
 
 CREATE TABLE `soal_frekuensi` (
   `id_soal` varchar(5) NOT NULL,
-  `soal` varchar(255) NOT NULL,
-  `jawaban` varchar(255) NOT NULL
+  `soal` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -146,8 +164,8 @@ CREATE TABLE `soal_frekuensi` (
 
 CREATE TABLE `soal_poisson` (
   `id_soal` varchar(5) NOT NULL,
-  `soal` varchar(255) NOT NULL,
-  `jawaban` varchar(255) NOT NULL
+  `soal` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -177,8 +195,8 @@ INSERT INTO `soal_regresi` (`id_soal`, `soal`, `jawaban`) VALUES
 
 CREATE TABLE `soal_square` (
   `id_soal` varchar(5) NOT NULL,
-  `soal` varchar(255) NOT NULL,
-  `jawaban` varchar(255) NOT NULL
+  `soal` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -239,6 +257,12 @@ ALTER TABLE `laporan_regresi`
 --
 ALTER TABLE `laporan_square`
   ADD PRIMARY KEY (`id_laporan`);
+
+--
+-- Indexes for table `owner`
+--
+ALTER TABLE `owner`
+  ADD PRIMARY KEY (`username`);
 
 --
 -- Indexes for table `soal_eksponensial`

@@ -41,6 +41,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
 
+            // Check in owner table
+            $stmt = $connect->prepare("SELECT password FROM owner WHERE username = ?");
+            $stmt->bind_param("s", $inputUsername);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                if (password_verify($inputPassword, $row['password'])) {
+                    $_SESSION['admin'] = $inputUsername;
+                    header("Location: owner.php");
+                    exit();
+                }
+            }
+
             echo "<script>alert('Login gagal. Periksa username atau password Anda.');</script>";
         } else {
             echo "<script>alert('Harap isi semua field.');</script>";

@@ -16,55 +16,29 @@ session_start();
             background-color: #f4f4f4;
         }
         .header {
-            display: flex;
-            justify-content: space-between;
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-        }
-        .header nav {
-            display: flex;
-            gap: 10px;
-            justify-content: space-around;
-            padding: 10px 20px;
-            align-items: center;
-        }
-        .header a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-        }
-        .header a:hover {
-            background-color: #575757;
-        }
-        .content {
-            background-color: #bdbdbd;
-            width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
             text-align: center;
+            padding: 100px;
+            background-color: #fff;
+            border-bottom: 2px solid #333;
         }
-        .image-container {
+        .header h1 {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+        }
+        .nav {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin-top: 50px;
+            margin: 20px 0;
         }
-        .image-container img {
-            width: 200px; /* Adjust size as needed */
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease-in-out;
-            animation: slide-in 0.5s ease-in-out;
-            background-color: #f4f4f4;
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
         }
-        .image-container img:hover {
-            transform: scale(1.05);
-        }
-        .logo-container {
-            display: flex;
-            justify-content: center;   /* Tambahkan margin jika diperlukan */
+        .nav a:hover {
+            text-decoration: underline;
         }
         .dropdown {
             position: relative;
@@ -95,41 +69,65 @@ session_start();
         .dropdown:hover .dropdown-content {
             display: block;
         }
+        .content {
+            text-align:justify;
+            padding: 40px;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 150px;
+        }
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-top: 2px solid #333;
+        }
     </style>
 </head>
 <body>
 
 <div class="header">
     <h1>PROBSTUDY</h1>
-    <nav>
-        <a href="home1.php">HOME</a>
-        <div class="dropdown">
-            <a class="dropbtn">MATERI</a>
-            <div class="dropdown-content">
-                <a href="regresi.php">Regresi Linear Sederhana</a>
-                <a href="eksponensial.php">Sebaran Peluang Distribusi Eksponensial</a>
-                <a href="poisson.php">⁠Sebaran Peluang Diskrit (Poisson)</a>
-                <a href="square.php">Chi Square</a>
-                <a href="frekuensi.php">Distribusi Frekuensi</a>
-            </div>
-        </div>
-        <a href="riwayat.php">RIWAYAT</a>
-        <?php if (isset($_SESSION['username'])): ?>
-            <a href="logout.php">LOGOUT</a>
-        <?php else: ?>
-            <a href="login.php">LOGIN</a>
-        <?php endif; ?>
-    </nav>
-</div>
 
-<div class="logo-container">
-    <img src="assets/logo.png" alt="Single Image">
+
+<div class="nav">
+    <a href="home1.php">HOME</a>
+    <div class="dropdown">
+        <a class="dropbtn">MATERI</a>
+        <div class="dropdown-content">
+            <a href="regresi.php">Regresi Linear Sederhana</a>
+            <a href="eksponensial.php">Sebaran Peluang Distribusi Eksponensial</a>
+            <a href="poisson.php">Sebaran Peluang Diskrit (Poisson)</a>
+            <a href="square.php">Chi Square</a>
+            <a href="frekuensi.php">Distribusi Frekuensi</a>
+        </div>
+    </div>
+    <a href="riwayat.php">RIWAYAT</a>
+    <?php if (isset($_SESSION['username'])): ?>
+        <a href="logout.php">LOGOUT</a>
+    <?php else: ?>
+        <a href="login.php">LOGIN</a>
+    <?php endif; ?>
+</div>
 </div>
 
 <div class="content">
-    <p> Kami adalah platform belajar interaktif yang dirancang khusus untuk membantu Anda memahami algoritma dan rumus dalam materi Probabilitas dan Statistika. Melalui kombinasi materi yang jelas, latihan soal lengkap dengan jawaban, dan fitur unggulan seperti kalkulator grafik, kami memastikan pengalaman belajar Anda menjadi lebih mudah dan menarik <br> <br>
-     Di ProbsStudy, Anda tidak hanya belajar teori, tetapi juga dapat langsung melihat hasil perhitungan dalam bentuk visual yang interaktif. Dengan begitu, Anda dapat memahami konsep lebih mendalam dan aplikatif.  Kami percaya bahwa setiap orang bisa menguasai probabilitas dan statistika dengan pendekatan yang tepat. 
-     ProbsStudy hadir untuk mendampingi perjalanan belajar Anda dengan cara yang sederhana, efektif, dan menyenangkan. Mari mulai eksplorasi dan tingkatkan pemahaman Anda bersama kami! 
+    <h2>Apa itu ProbStudy?</h2>
+    <p>ProbStudy adalah platform belajar interaktif yang membantu Anda memahami algoritma dan rumus dalam materi Probabilitas dan Statistika. Kami memastikan pengalaman belajar Anda menjadi lebih mudah dan menarik.</p>
+    <p> Di ProbsStudy, Anda tidak hanya mempelajari teori, tetapi juga melihat hasil perhitungan dalam visual interaktif untuk pemahaman yang lebih mendalam. Dengan pendekatan yang sederhana dan efektif, kami mendampingi perjalanan belajar Anda agar Probabilitas dan Statistika menjadi lebih mudah dan menyenangkan. Mari eksplorasi bersama ProbsStudy!</p>
     
     <div class="image-container">
         <a href="regresi.php"><img src="assets/regresi.png" alt="Image 1"></a>
@@ -138,7 +136,11 @@ session_start();
         <a href="square.php"><img src="assets/square.png" alt="Image 4"></a>
         <a href="frekuensi.php"><img src="assets/frekuensi.png" alt="Image 5"></a>
     </div>
+</div>
 
+<div class="footer">
+    <p>© 2024 ProbStudy. All rights reserved.</p>
+</div>
 
 </body>
 </html>

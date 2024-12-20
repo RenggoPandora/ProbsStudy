@@ -117,10 +117,10 @@
             <!-- mulai href konten -->
             <div class="main-a">
                 <div class="a-wrapper">
-                    <a href="#pengertian">pengartian eksponensial</a>
+                    <a href="#pengertian">pengartian </a>
                     <a href="#langkah">Langkah langkah pengerjaan</a>
                     <a href="#contoh-soal">contoh soal</a>
-                    <a href="#kalkulator">Kalkulator eksponensial</a>
+                    <a href="#kalkulator">Kalkulator </a>
                 </div>
             </div>
             <!-- ahir href konten -->
