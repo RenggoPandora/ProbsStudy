@@ -138,6 +138,12 @@ session_start();
     </div>
 </div>
 
+<!-- Form untuk mengirimkan umpan balik -->
+<form action="submit_feedback.php" method="POST" style="text-align: center; margin: 20px;">
+    <textarea name="feedback" rows="4" cols="50" placeholder="Tulis umpan balik Anda di sini..." required></textarea><br>
+    <button type="submit">Kirim</button>
+</form>
+
 <div class="footer">
     <p>© 2024 ProbStudy. All rights reserved.</p>
 </div>
