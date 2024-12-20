@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $row = $result->fetch_assoc();
                 if (password_verify($inputPassword, $row['password'])) {
                     $_SESSION['admin'] = $inputUsername;
-                    header("Location: crud_soal.php");
+                    header("Location: admin.php");
                     exit();
                 }
             }
