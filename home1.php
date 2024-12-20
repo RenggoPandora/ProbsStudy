@@ -101,8 +101,6 @@ session_start();
 
 <div class="header">
     <h1>PROBSTUDY</h1>
-
-
 <div class="nav">
     <a href="home1.php">HOME</a>
     <div class="dropdown">
