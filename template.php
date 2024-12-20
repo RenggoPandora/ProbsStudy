@@ -14,7 +14,7 @@
         <div class="navbar">
             <img src="assets/logo.png" alt="">
             <div class="nav">
-                <a href="">HOME</a>
+                <a href="home1.php">HOME</a>
                 <div class="dropdown">
                     <a class="dropbtn">MATERI</a>
                     <div class="dropdown-content">
@@ -25,7 +25,7 @@
                         <a href="frekuensi.php">Distribusi Frekuensi</a>
                     </div>
                 </div>
-                <a href="">RIWAYAT</a>
+                <a href="riwayat.php">RIWAYAT</a>
                 <?php if (isset($_SESSION['username'])): ?>
                     <a href="logout.php">LOGOUT</a>
                 <?php else: ?>
