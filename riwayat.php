@@ -44,7 +44,7 @@ foreach ($data as $table => $rows) {
             echo "<td>" . $no++ . "</td>";
             echo "<td>" . htmlspecialchars($row['hasil']) . "</td>";
             echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
-            echo "<td><img src='" . htmlspecialchars($row['chart_image']) . "' alt='Chart Image' class='chart-image' data-full='" . htmlspecialchars($row['chart_image']) . "'></td>";
+            echo "<td><img src='" . htmlspecialchars($row['chart_image']) . "' alt='Chart Image' class='chart-image' data-full='" . htmlspecialchars($row['chart_image']) . "' onclick='openModal(this)'></td>";
             echo "</tr>";
         }
     } else {
@@ -52,6 +52,28 @@ foreach ($data as $table => $rows) {
     }
     echo "</table>";
 }
+
+// Tambahkan modal untuk menampilkan gambar penuh
+echo "<div id='myModal' class='modal'>
+    <span class='close' onclick='closeModal()'>&times;</span>
+    <img class='modal-content' id='img01'>
+</div>";
+
+// Tambahkan JavaScript untuk membuka dan menutup modal
+?>
+<script>
+function openModal(img) {
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("img01");
+    modal.style.display = "block";
+    modalImg.src = img.getAttribute('data-full');
+}
+
+function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+</script>
 ?>
 
 <!DOCTYPE html>

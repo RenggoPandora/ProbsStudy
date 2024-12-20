@@ -1,32 +1,6 @@
 <?php
 session_start();
-include("connect.php"); // Menyertakan file koneksi
-
-// Mendapatkan data JSON dari permintaan
-$data = json_decode(file_get_contents("php://input"), true);
-
-if (isset($data['lambda'], $data['maxX'], $data['probabilities'])) {
-    $lambda = $data['lambda'];
-    $maxX = $data['maxX'];
-    $probabilities = json_encode($data['probabilities']); // Mengonversi array probabilities ke JSON
-
-    // Menyiapkan pernyataan SQL
-    $stmt = $connect->prepare("INSERT INTO laporan_poisson (lambda, max_x, probabilities) VALUES (?, ?, ?)");
-    $stmt->bind_param("dis", $lambda, $maxX, $probabilities); // d untuk double, i untuk integer, s untuk string
-
-    // Menjalankan pernyataan
-    if ($stmt->execute()) {
-        echo json_encode(["status" => "success", "message" => "Hasil berhasil disimpan."]);
-    } else {
-        echo json_encode(["status" => "error", "message" => "Gagal menyimpan hasil."]);
-    }
-
-    $stmt->close();
-} else {
-    echo json_encode(["status" => "error", "message" => "Input tidak valid."]);
-}
-
-$connect->close();
+include ("connect.php");
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +48,7 @@ $connect->close();
         .header {
             display: flex;
             justify-content: space-between;
-            background-color: #333;
+            background-color: #007bff;
             color: white;
             padding: 10px 20px;
         }
@@ -204,21 +178,7 @@ $connect->close();
             font-size: large;
         }
 
-        .contoh {
-            
-            padding-bottom: 60px;
-        }
-
-        .contoh h2 {
-            margin-bottom: 4rem;
-        }
-
-        .conso-container img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 80%;
-        }
+        
 
         .proyek {
             text-align: center;
@@ -469,14 +429,27 @@ $connect->close();
     transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-        .footer {
-            flex-direction: column-reverse;
-        }
+.footer-title {
+    font-size: 2.5rem; /* Increased font size */
+}
 
-        .footer p {
-            text-align: center;
-            margin-top: 2rem;
-        }
+.footer-navbar {
+    font-size: 1.8rem; /* Increased font size */
+}
+
+.footer-link {
+    color: #000000; /* Changed color to purple */
+}
+
+.footer-dropdown-content {
+    font-size: 1.3rem; /* Font size for dropdown items */
+}
+
+.footer {
+    flex-direction: column-reverse; /* Maintain existing layout */
+    text-align: center; /* Center align footer text */
+    padding: 2rem 9%; /* Maintain existing padding */
+}
     </style>
 </head>
 
@@ -580,14 +553,59 @@ $connect->close();
     <!-- Bagian materi -->
 
     <!-- Bagian contoh -->
-    <section class="contoh" id="contoh">
-    <h2 class="heading" style="font-size: 4rem; text-align: center;">Contoh<span> Soal</span></h2>
+    <h2>Daftar Soal dan Jawaban</h2>
+    <style>
+       /* Add this CSS for table styling */
+       table {
+           width: 100%; /* Full width */
+           border-collapse: collapse; /* Merge borders */
+           margin: 20px auto; /* Center the table with top margin */
+           max-width: 800px; /* Set a maximum width for the table */
+       }
+        th, td {
+           padding: 12px; /* Padding inside cells */
+           text-align: left; /* Align text to the left */
+           border: 1px solid #ccc; /* Light gray border */
+           color: black; /* Set font color to black */
+       }
+        th {
+           background-color: #007bff; /* Header background color */
+           color: white; /* Header text color */
+       }
+        tr:nth-child(even) {
+           background-color: #f2f2f2; /* Zebra striping for even rows */
+       }
+        tr:hover {
+           background-color: #ddd; /* Highlight row on hover */
+       }
+   </style>
+    <?php
+    // Query untuk mengambil data soal dan jawaban
+    $query = "SELECT * FROM soal_poisson";
+    $result = mysqli_query($connect, $query);
 
-        <div class="conso-container">
-            <img src="images/conso1.jpg" alt=""> <br>
-            <img src="images/conso2.jpg" alt="">
-        </div>
-    </section>
+    // Cek apakah data tersedia
+    if (mysqli_num_rows($result) > 0) {
+        echo "<table border='1' cellspacing='0' cellpadding='10'>";
+        echo "<tr>
+                <th>No</th>
+                <th>Soal</th>
+                <th>Jawaban</th>
+              </tr>";
+
+        $no = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>";
+            echo "<td>" . $no++ . "</td>";
+            echo "<td>" . htmlspecialchars($row['soal']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['jawaban']) . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "<p>Tidak ada data soal yang tersedia.</p>";
+    }
+    ?>
     <!-- Bagian contoh -->
 
     <!-- Bagian proyek -->
@@ -634,10 +652,23 @@ $connect->close();
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-text">
-            <p>Copyright &copy; Kelompok Tiga || ProbStudy</p>
-        </div>
-    </footer>
+      <nav class="navbar footer-navbar"> <!-- Increased font size -->
+          <a href="home1.php" class="footer-link">HOME</a> <!-- Changed color to purple -->
+          <div class="dropdown">
+              <a class="dropbtn footer-link">MATERI</a> <!-- Changed color to purple -->
+              <div class="dropdown-content footer-dropdown-content">
+                  <a href="regresi.php" class="footer-link">Regresi Linear Sederhana</a> <!-- Changed color to purple -->
+                  <a href="eksponensial.php" class="footer-link">Sebaran Peluang Distribusi Eksponensial</a> <!-- Changed color to purple -->
+                  <a href="poisson.php" class="footer-link">⁠Sebaran Peluang Diskrit (Poisson)</a> <!-- Changed color to purple -->
+                  <a href="square.php" class="footer-link">Chi Square</a> <!-- Changed color to purple -->
+                  <a href="frekuensi.php" class="footer-link">Distribusi Frekuensi</a> <!-- Changed color to purple -->
+              </div>
+              <a href="riwayat.php" class="footer-link" style="color: black;">RIWAYAT</a>
+          </div>
+       <div class="footer-text">
+           <p>Copyright &copy; Kelompok Tiga || ProbStudy</p>
+       </div>
+   </footer>
     <!-- Footer -->
 
     <!-- java script -->
@@ -800,21 +831,40 @@ function drawChart() {
     }
 }
 function calculateProbabilities() {
-    let lam = parseFloat(document.getElementById('lambda').value);
-    let x = parseInt(document.getElementById('xValue').value);
-    let a = parseInt(document.getElementById('aValue').value);
-    let b = parseInt(document.getElementById('bValue').value);
-    
-    let p_x_eq_x = poissonProbability(lam, x);
-    let p_x_leq_x = cumulativePoisson(lam, x);
-    let p_x_geq_x = upperCumulativePoisson(lam, x);
-    let p_interval = cumulativePoisson(lam, b) - cumulativePoisson(lam, a - 1);
-    
-    document.getElementById('result_eq_x').innerText = 'p(X = ' + x + ') = ' + p_x_eq_x.toFixed(4);
-    document.getElementById('result_leq_x').innerText = 'p(X <= ' + x + ') = ' + p_x_leq_x.toFixed(4);
-    document.getElementById('result_geq_x').innerText = 'p(X >= ' + x + ') = ' + p_x_geq_x.toFixed(4);
-    document.getElementById('result_interval').innerText = 'p(' + a + ' <= X <= ' + b + ') = ' + p_interval.toFixed(4);
-}
+       let lam = parseFloat(document.getElementById('lambda').value);
+       let x = parseInt(document.getElementById('xValue').value);
+       let a = parseInt(document.getElementById('aValue').value);
+       let b = parseInt(document.getElementById('bValue').value);
+       
+       let p_x_eq_x = poissonProbability(lam, x);
+       let p_x_leq_x = cumulativePoisson(lam, x);
+       let p_x_geq_x = upperCumulativePoisson(lam, x);
+       let p_interval = cumulativePoisson(lam, b) - cumulativePoisson(lam, a - 1);
+       
+       document.getElementById('result_eq_x').innerText = 'p(X = ' + x + ') = ' + p_x_eq_x.toFixed(4);
+       document.getElementById('result_leq_x').innerText = 'p(X <= ' + x + ') = ' + p_x_leq_x.toFixed(4);
+       document.getElementById('result_geq_x').innerText = 'p(X >= ' + x + ') = ' + p_x_geq_x.toFixed(4);
+       document.getElementById('result_interval').innerText = 'p(' + a + ' <= X <= ' + b + ') = ' + p_interval.toFixed(4);
+        // New code to insert results into the database
+       let username = '<?php echo $_SESSION['username']; ?>'; // Get the username from the session
+       let hasil = JSON.stringify({
+           p_x_eq_x: p_x_eq_x.toFixed(4),
+           p_x_leq_x: p_x_leq_x.toFixed(4),
+           p_x_geq_x: p_x_geq_x.toFixed(4),
+           p_interval: p_interval.toFixed(4)
+       });
+       let tanggal = new Date().toISOString().slice(0, 10); // Get current date in YYYY-MM-DD format
+        // AJAX request to insert data into the database
+       let xhr = new XMLHttpRequest();
+       xhr.open("POST", "insert_laporan.php", true);
+       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       xhr.onreadystatechange = function () {
+           if (xhr.readyState === 4 && xhr.status === 200) {
+               console.log(xhr.responseText); // Handle response if needed
+           }
+       };
+       xhr.send("username=" + encodeURIComponent(username) + "&hasil=" + encodeURIComponent(hasil) + "&tanggal=" + encodeURIComponent(tanggal));
+   }
 </script>
 </body>
 </html>
