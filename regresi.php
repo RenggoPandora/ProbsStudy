@@ -4,132 +4,15 @@ include ("connect.php");
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROBSTUDY</title>
+    <title>PROBSTUDY || EKSPONENSIAL</title>
+    <link rel="stylesheet" href="css/materi.css">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #eaeaea;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            background-color: #007bff;
-            color: white;
-            padding: 20px 40px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .header nav {
-            display: flex;
-            gap: 10px;
-            justify-content: space-around;
-            padding: 10px 20px;
-            align-items: center;
-        }
-        .header a {
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .header a:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(131 129 129 / 66%);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .photo_materi {
-            display: flex;
-            justify-content: center;   /* Tambahkan margin jika diperlukan */
-        }
-        .materi {
-            padding: 40px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            margin: 30px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        }
-        .materi h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .materi p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        .materi ul {
-            list-style-type: disc;
-            padding-left: 20px;
-            margin-bottom: 10px;
-        }
-        .materi li {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        #penjelasan_metode {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 15px;
-            text-align: center;
-        }
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e9ecef;
-            border: 1px solid #ced4da;
-        }
-        .kalkulator-regresi {
+	.kalkulator-regresi {
             margin-top: 20px;
             padding: 40px;
             background-color: #ffffff;
@@ -179,59 +62,71 @@ include ("connect.php");
         }
         </style>
 </head>
-<body>
 
-<div class="header">
-    <h1>PROBSTUDY</h1>
-    <nav>
-        <a href="home1.php">HOME</a>
-        <div class="dropdown">
-            <a class="dropbtn">MATERI</a>
-            <div class="dropdown-content">
-                <a href="regresi.php">Regresi Linear Sederhana</a>
-                <a href="eksponensial.php">Sebaran Peluang Distribusi Eksponensial</a>
-                <a href="poisson.php">⁠Sebaran Peluang Diskrit (Poisson)</a>
-                <a href="square.php">Chi Square</a>
-                <a href="frekuensi.php">Distribusi Frekuensi</a>
+<body>
+    <div class="container">
+        <!-- mulai navbar -->
+        <div class="navbar">
+            <img src="assets/logo.png" alt="">
+            <div class="nav">
+                <a href="home1.php">HOME</a>
+                <div class="dropdown">
+                    <a class="dropbtn">MATERI</a>
+                    <div class="dropdown-content">
+                        <a href="regresi.php">Regresi Linear Sederhana</a>
+                        <a href="eksponensial.php">Sebaran Peluang Distribusi Eksponensial</a>
+                        <a href="poisson.php">⁠Sebaran Peluang Diskrit (Poisson)</a>
+                        <a href="square.php">Chi Square</a>
+                        <a href="frekuensi.php">Distribusi Frekuensi</a>
+                    </div>
+                </div>
+                <a href="riwayat.php">RIWAYAT</a>
+                <?php if (isset($_SESSION['username'])): ?>
+                    <a href="logout.php">LOGOUT</a>
+                <?php else: ?>
+                    <a href="login.php">LOGIN</a>
+                <?php endif; ?>
             </div>
         </div>
-        <a href="riwayat.php">RIWAYAT</a>
-        <?php if (isset($_SESSION['username'])): ?>
-            <a href="logout.php">LOGOUT</a>
-        <?php else: ?>
-            <a href="login.php">LOGIN</a>
-        <?php endif; ?>
-    </nav>
-</div>
+        <!-- ahir navbar -->
 
-<div class="photo_materi">
-    <img src="assets/regresi.png" alt="Regresi Linear Sederhana">
-</div>
+        <!-- mulai logo -->
+        <div class="logo">
+            <img src="assets/regresi.png" alt="">
+        </div>
+        <!-- ahir logo -->
 
-<div class="materi">
+        <!-- mulai konten -->
+        <div class="main">
+            <!-- mulai isi konten -->
+            <div class="main-main">
 
-    <p>Analisis regresi sederhana bertujuan untuk mengetahui pengaruh dari suatu variabel terhadap variabel lainnya. 
+                <div class="pengertian" id="pengertian">
+                    <h1>Pengertian Distribusi Eksponensial</h1>
+                    <p>Analisis regresi sederhana bertujuan untuk mengetahui pengaruh dari suatu variabel terhadap variabel lainnya. 
     Pada analisis regresi suatu variabel yang mempengaruhi disebut variabel bebas atau independent variable, sedangkan variabel yang dipengaruhi disebut variabel terkait atau dependent variable. 
     Jika persamaan regresi hanya terdapat satu variabel bebas dengan satu variabel terkait, maka disebut dengan persamaan regresi sederhana. 
     Jika variabel bebasnya lebih dari satu, maka disebut dengan persamaan regresi berganda. 
     Pada regresi sederhana kita dapat mengetahui berapa besar perubahan dari variabel bebas dapat mempengaruhi suatu variabel terkait.</p>
 
-    <div style="text-align: center;">
-        <img src="assets/rumus_regresi.png" alt="Rumus Regresi Linier Sederhana">
-    </div>
-    <ul>
-        <li><strong>Y</strong> = Variabel dependen (variabel terikat)</li>
-        <li><strong>X</strong> = Variabel independent (variabel bebas)</li>
-        <li><strong>a</strong> = Konstanta (nilai dari Y apabila X = 0)</li>
-        <li><strong>b</strong> = Koefisien regresi (pengaruh positif atau negatif)</li>
-    </ul>
-
-    <p> Tujuan analisis regresi untuk mendapatkan pola hubungan secara matematis dari variabel X dan variabel Y, dan untuk mengetahui besarnya perubahan variabel X terhadap variabel Y, serta untuk memprediksi variabel Y jika nilai variabel X diketahui. 
+                    <div class="rumus">
+                        <h2>Rumus Regresi Linear Sederhana</h2>
+                        <img src="assets/rumus_regresi.png" alt="">
+                            <ul>
+       				<li><strong>Y</strong> = Variabel dependen (variabel terikat)</li>
+        			<li><strong>X</strong> = Variabel independent (variabel bebas)</li>
+        			<li><strong>a</strong> = Konstanta (nilai dari Y apabila X = 0)</li>
+        			<li><strong>b</strong> = Koefisien regresi (pengaruh positif atau negatif)</li>
+    			   </ul>
+                    </div>
+                    <p> Tujuan analisis regresi untuk mendapatkan pola hubungan secara matematis dari variabel X dan variabel Y, dan untuk mengetahui besarnya perubahan variabel X terhadap variabel Y, serta untuk memprediksi variabel Y jika nilai variabel X diketahui. 
         Prinsip dasar pada persamaan regresi sederhana adalah bahwa antara variabel dependen (Y) dengan variable independennya (Y) harus memiliki sifat hubungan sebab akibat atau hubungan kausalitas, berdasarkan teori, dari hasil penelitian sebelumnya, atau juga yang didasarkan dari penjelasan logis tertentu.
     </p>
+                </div>
 
-    <h2>Langkah-Langkah Mengerjakan Soal Regresi Linear Sederhana</h2>
-    <ol>
+                <div class="langkah" id="langkah">
+                    <h1>Langkah-Langkah Mengerjakan Soal </h1>
+                    <ol>
         <li><strong>Identifikasi Variabel:</strong> Tentukan variabel independen (X) dan variabel dependen (Y) dari data yang diberikan.</li>
         <li><strong>Kumpulkan Data:</strong> Siapkan data dalam bentuk tabel yang mencakup nilai X dan Y.</li>
         <li><strong>Hitung Rata-rata:</strong> Hitung rata-rata dari variabel X dan Y menggunakan rumus:
@@ -247,27 +142,27 @@ include ("connect.php");
         </li>
         <li><strong>Prediksi Nilai:</strong> Gunakan persamaan regresi untuk memprediksi nilai Y berdasarkan nilai X yang diketahui.</li>
     </ol>
-    
-    <div id="penjelasan_metode">
-        <h1>Contoh Pengerjaan Regresi Linear Sederhana</h1>
-        <p>Data yang diberikan:</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>X (Jam Belajar)</th>
-                    <th>Y (Nilai Ujian)</th>
-                    <th>X - X̄</th>
-                    <th>Y - Ŷ</th>
-                    <th>(X - X̄)(Y - Ŷ)</th>
-                    <th>(X - X̄)²</th>
-                </tr>
-            </thead>
-            <tbody id="data-table">
-                <!-- Data akan diisi menggunakan JavaScript -->
-            </tbody>
-        </table>
+                    <div class="contoh">
+                        <h1>Contoh pengerjaan Regresi Linear Sederhana </h1>
 
-        <div class="result">
+                        <table>
+            		<thead>
+                		<tr>
+                    		<th>X (Jam Belajar)</th>
+                    		<th>Y (Nilai Ujian)</th>
+                    		<th>X - X̄</th>
+                    		<th>Y - Ŷ</th>
+                    		<th>(X - X̄)(Y - Ŷ)</th>
+                    		<th>(X - X̄)²</th>
+                		</tr>
+            		</thead>
+            		<tbody id="data-table">
+                		<!-- Data akan diisi menggunakan JavaScript -->
+            		</tbody>
+        		</table>
+
+                        <div class="card">
+                            <div class="result">
             <p><strong>Persamaan Regresi Linear:</strong></p>
             <p><span id="equation"></span></p>
             <p><strong>Prediksi Nilai untuk X = 6:</strong></p>
@@ -338,9 +233,12 @@ include ("connect.php");
         predictionElement.innerText = `y = ${predictedY.toFixed(2)}`;
 
     </script>
+                        
+                    </div> 
 
-    <h2>Daftar Soal dan Jawaban</h2>
-    <?php
+                <div class="contoh-soal" id="contoh-soal">
+                    <h1>Contoh Soal dan Jawaban</h1>
+			 <?php
     // Query untuk mengambil data soal dan jawaban
     $query = "SELECT * FROM soal_regresi";
     $result = mysqli_query($connect, $query);
@@ -367,9 +265,12 @@ include ("connect.php");
         echo "<p>Tidak ada data soal yang tersedia.</p>";
     }
     ?>
+                </div>
 
-    <h2>Kalkulator Regresi Linear</h2>
-    <div class="kalkulator-regresi">
+                <div class="kalkulator" id="kalkulator">
+                    <h1>Kalkulator Regresi Linear Sederhana</h1>
+                    <div class="card">
+			<div class="kalkulator-regresi">
         <?php if (isset($_SESSION['username'])): ?>
             <label for="dataCount">Jumlah Data:</label>
             <input type="number" id="dataCount" min="2" value="2">
@@ -531,8 +432,24 @@ include ("connect.php");
 </div>
         <?php endif; ?>
     </div>
-</div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ahir isi konten -->
+            <!-- mulai href konten -->
+            <div class="main-a">
+                <div class="a-wrapper">
+                    <a href="#pengertian">pengartian </a>
+                    <a href="#langkah">Langkah langkah pengerjaan</a>
+                    <a href="#contoh-soal">contoh soal</a>
+                    <a href="#kalkulator">Kalkulator </a>
+                </div>
+            </div>
+            <!-- ahir href konten -->
+        </div>
+        <!-- ahir konten -->
+    </div>
 </body>
+
 </html>
-    
-    
