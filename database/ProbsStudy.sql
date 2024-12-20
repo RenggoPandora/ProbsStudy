@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 20, 2024 at 06:52 AM
+-- Generation Time: Dec 20, 2024 at 08:09 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -62,7 +62,8 @@ CREATE TABLE `laporan_frekuensi` (
   `id_laporan` varchar(5) NOT NULL,
   `username` varchar(25) NOT NULL,
   `hasil` varchar(255) NOT NULL,
-  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `chart_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -75,7 +76,8 @@ CREATE TABLE `laporan_poisson` (
   `id_laporan` varchar(5) NOT NULL,
   `username` varchar(25) NOT NULL,
   `hasil` varchar(255) NOT NULL,
-  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `chart_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -109,7 +111,8 @@ CREATE TABLE `laporan_square` (
   `id_laporan` varchar(5) NOT NULL,
   `username` varchar(25) NOT NULL,
   `hasil` varchar(255) NOT NULL,
-  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `chart_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -180,13 +183,6 @@ CREATE TABLE `soal_regresi` (
   `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `soal_regresi`
---
-
-INSERT INTO `soal_regresi` (`id_soal`, `soal`, `jawaban`) VALUES
-('SRG01', 'Diberikan data pengamatan berikut tentang jumlah iklan (X) dan jumlah penjualan (Y) dalam satu bulan:\r\nIklan (X): 1, 2, 3, 4, 5\r\nPenjualan (Y): 2, 4, 5, 6, 8 Hitunglah persamaan regresi linear sederhana dari data tersebut!', 'Persamaan regresi sederhana adalah Y = a + bX, di mana:\r\na adalah intercept, dan\r\nb adalah koefisien regresi.\r\nBerdasarkan perhitungan, didapatkan:\r\na = 0.8, b = 1.4 Maka, persamaan regresinya adalah: Y = 0.8 + 1.4X.');
-
 -- --------------------------------------------------------
 
 --
@@ -198,6 +194,26 @@ CREATE TABLE `soal_square` (
   `soal` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `umpanbalik`
+--
+
+CREATE TABLE `umpanbalik` (
+  `id` int NOT NULL,
+  `umpan_balik` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `status` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `umpanbalik`
+--
+
+INSERT INTO `umpanbalik` (`id`, `umpan_balik`, `status`) VALUES
+(1, 'bagus', 'Selesai'),
+(2, 'Mantap', 'Diproses');
 
 -- --------------------------------------------------------
 
@@ -295,11 +311,27 @@ ALTER TABLE `soal_square`
   ADD PRIMARY KEY (`id_soal`);
 
 --
+-- Indexes for table `umpanbalik`
+--
+ALTER TABLE `umpanbalik`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`username`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `umpanbalik`
+--
+ALTER TABLE `umpanbalik`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

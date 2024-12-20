@@ -115,6 +115,7 @@ session_start();
     </div>
     <a href="riwayat.php">RIWAYAT</a>
     <?php if (isset($_SESSION['username'])): ?>
+        <a href="profil.php">PROFIL</a>
         <a href="logout.php">LOGOUT</a>
     <?php else: ?>
         <a href="login.php">LOGIN</a>
