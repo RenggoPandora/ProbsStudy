@@ -35,7 +35,7 @@
     <!-- start navbar -->
     <div class="navbar">
         <div class="navbar-navv">
-            <a href="home.php">HOME</a>
+            <a href="home1.php">HOME</a>
             <div class="dropdown">
                 <a class="dropbtn" href="#">MATERI</a>
                 <div class="dropdown-content">

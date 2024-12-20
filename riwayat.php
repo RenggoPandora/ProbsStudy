@@ -11,32 +11,12 @@ if (!isset($_SESSION['username'])) {
 // Ambil username yang sedang login
 $username = $_SESSION['username'];
 
-// Query untuk mengambil data laporan milik user dari tabel lain
-$queries = [
-    "SELECT hasil, tanggal, chart_image FROM laporan_regresi WHERE username = ?",
-    "SELECT hasil, tanggal, chart_image FROM laporan_poisson WHERE username = ?",
-    "SELECT hasil, tanggal, chart_image FROM laporan_eksponensial WHERE username = ?",
-    "SELECT hasil, tanggal, chart_image FROM laporan_frekuensi WHERE username = ?",
-    "SELECT hasil, tanggal, chart_image FROM laporan_square WHERE username = ?"
-];
-
-foreach ($queries as $query) {
-    $stmt = $connect->prepare($query);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $no++ . "</td>";
-            echo "<td>" . htmlspecialchars($row['hasil']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
-            echo "<td><img src='" . htmlspecialchars($row['chart_image']) . "' alt='Chart Image' class='chart-image' data-full='" . htmlspecialchars($row['chart_image']) . "'></td>";
-            echo "</tr>";
-        }
-    }
-}
+// Query untuk mengambil data laporan milik user
+$query = "SELECT hasil, tanggal, chart_image FROM laporan_regresi WHERE username = ?";
+$stmt = $connect->prepare($query);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
