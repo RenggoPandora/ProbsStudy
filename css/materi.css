@@ -21,12 +21,17 @@ body {
     left: 0;
     height: 15%;
     width: 100%;
-    background-color: black;
+    background-color: white;
     display: flex;
     gap: 10px;
-    justify-content: space-around;
-    padding: 10px 20px;
+    justify-content: space-between;
+    padding: 10px 10px;
     align-items: center;
+}
+
+.navbar img {
+    width: 200px;
+    height: auto;
 }
 
 .navbar nav {
@@ -38,16 +43,29 @@ body {
 }
 
 .navbar a {
-    color: white;
+    font-size: 30px;
+    font-family: 'Lalezar', sans-serif;
+    font-style: normal;
+    color: black;
     text-decoration: none;
     padding: 12px 20px;
     border-radius: 5px;
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.navbar a:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+.button button {
+    width: 100px;
+    height: 25px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 40px;
+    font-size: 10px;
+    color: black;
+}
+
+.button button:hover {
+    background-color: black;
+    color: white;
 }
 
 .dropdown {
@@ -65,6 +83,7 @@ body {
 }
 
 .dropdown-content a {
+    font-size: 12px;
     color: black;
     padding: 12px 16px;
     text-decoration: none;
@@ -190,15 +209,6 @@ th {
     color: white;
 }
 
-.card {
-    width: 95%;
-    height: auto;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: #adabab;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
 .main-main .contoh-soal {
     display: flex;
     flex-direction: column;
@@ -213,6 +223,55 @@ th {
     justify-content: space-between;
     align-items: center;
     gap: 10px;
+}
+
+.card {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #adabab;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card label {
+    font-size: 15px;
+    color: black;
+    padding-top: 20px;
+}
+
+.card input {
+    width: 98%;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.card .button {
+    width: 100%;
+    padding-top: 30px;
+    display: flex;
+    justify-content: end;
+}
+
+.card .button button {
+    width: 150px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 15px;
+    color: black;
+}
+
+.card button:hover {
+    background-color: black;
+    color: white;
 }
 
 .main .main-a {
@@ -233,3 +292,19 @@ th {
     padding: 20px;
     font-size: 15px;
 }
+
+/* css materi eksponensial */
+.card .hasil{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hasil .svg{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* css materi eksponensial */
