@@ -10,6 +10,12 @@ include("connect.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROBSTUDY - Chi Square</title>
+    <link rel="stylesheet" href="css/materi.css">
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -207,9 +213,9 @@ include("connect.php");
 
 <body>
 
-    <div class="header">
-        <h1>PROBSTUDY</h1>
-        <nav>
+    <div class="navbar">
+        <img src="assets/logo.png" alt="">
+        <div class="nav">
             <a href="home1.php">HOME</a>
             <div class="dropdown">
                 <a class="dropbtn">MATERI</a>
@@ -218,16 +224,19 @@ include("connect.php");
                     <a href="eksponensial.php">Sebaran Peluang Distribusi Eksponensial</a>
                     <a href="poisson.php">⁠Sebaran Peluang Diskrit (Poisson)</a>
                     <a href="square.php">Chi Square</a>
-                    <a href="frekuensi.php">Distribusi Frekuensi</a>
+                    <a href="frekuensi.php">Distribusi Frekuensi</a>
                 </div>
             </div>
             <a href="riwayat.php">RIWAYAT</a>
+        </div>
+        <div class="button">
+            <a href="profil.php"><button>PROFil</button></a>
             <?php if (isset($_SESSION['username'])): ?>
-                <a href="logout.php">LOGOUT</a>
+                <a href="logout.php"><button>LOGout</button></a>
             <?php else: ?>
-                <a href="login.php">LOGIN</a>
+                <a href="login.php"><button>LOGin</button></a>
             <?php endif; ?>
-        </nav>
+        </div>
     </div>
 
     <div class="photo_materi">
