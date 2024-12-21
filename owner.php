@@ -1,5 +1,6 @@
 <?php
-include("connect.php");
+session_start();
+include 'connect.php';
 
 // Fungsi untuk menghapus user
 function deleteUser($connect, $username)
@@ -102,15 +103,15 @@ if (isset($_GET['update_status']) && isset($_GET['status'])) {
 </head>
 
 <body>
-    <div class="navbar">
+<div class="navbar">
         <img src="assets/logo.png" alt="">
         <div class="button">
-            <?php if (isset($_SESSION['username'])): ?>
-                <a href="logout.php"><button>LOGout</button></a>
-            <?php else: ?>
-                <a href="login.php"><button>LOGin</button></a>
-            <?php endif; ?>
-        </div>
+                <?php if (isset($_SESSION['username'])): ?>
+                    <a href="logout.php"><button>LOGout</button></a>
+                <?php else: ?>
+                    <a href="login.php"><button>LOGin</button></a>
+                <?php endif; ?>
+            </div>
     </div>
     <div class="container">
         <div class="wrapper-box">

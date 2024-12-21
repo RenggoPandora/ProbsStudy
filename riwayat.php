@@ -8,60 +8,10 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
-// Ambil username yang sedang login
-$username = $_SESSION['username'];
-
-// Ambil data dari semua tabel
-$tables = ['laporan_regresi', 'laporan_eksponensial', 'laporan_frekuensi', 'laporan_poisson', 'laporan_square'];
-$data = [];
-
-foreach ($tables as $table) {
-    $query = "SELECT hasil, tanggal, chart_image FROM $table WHERE username = ?";
-    $stmt = $connect->prepare($query);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $data[$table][] = $row; // Store results by table
-        }
-    } else {
-        $data[$table] = []; // No results for this table
-    }
-}
-
-// Tampilkan data untuk setiap tabel
-foreach ($data as $table => $rows) {
-    echo "<h2>" . ucfirst(str_replace('_', ' ', $table)) . "</h2>"; // Display table name
-    echo "<table>";
-    echo "<tr><th>No</th><th>Hasil</th><th>Tanggal</th><th>Chart Image</th></tr>";
-    
-    $no = 1;
-    if (!empty($rows)) {
-        foreach ($rows as $row) {
-            echo "<tr>";
-            echo "<td>" . $no++ . "</td>";
-            echo "<td>" . htmlspecialchars($row['hasil']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
-            echo "<td><img src='" . htmlspecialchars($row['chart_image']) . "' alt='Chart Image' class='chart-image' data-full='" . htmlspecialchars($row['chart_image']) . "' onclick='openModal(this)'></td>";
-            echo "</tr>";
-        }
-    } else {
-        echo "<tr><td colspan='4'>Belum ada laporan yang tersedia.</td></tr>";
-    }
-    echo "</table>";
-}
-
-// Tambahkan modal untuk menampilkan gambar penuh
-echo "<div id='myModal' class='modal'>
-    <span class='close' onclick='closeModal()'>&times;</span>
-    <img class='modal-content' id='img01'>
-</div>";
-
-// Tambahkan JavaScript untuk membuka dan menutup modal
 ?>
+
 <script>
+    // Tambahkan JavaScript untuk membuka dan menutup modal
 function openModal(img) {
     var modal = document.getElementById("myModal");
     var modalImg = document.getElementById("img01");
@@ -74,7 +24,7 @@ function closeModal() {
     modal.style.display = "none";
 }
 </script>
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -200,6 +150,13 @@ function closeModal() {
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
+        .content{
+            width: auto;
+            height: auto;
+            padding: 30px;
+            margin: 30px;
+        }
     </style>
 </head>
 <body>
@@ -224,6 +181,61 @@ function closeModal() {
             <?php else: ?>
                 <a href="login.php">LOGIN</a>
             <?php endif; ?>
+        </div>
+        <div class="content">
+        <?php
+// Ambil username yang sedang login
+$username = $_SESSION['username'];
+
+// Ambil data dari semua tabel
+$tables = ['laporan_regresi', 'laporan_eksponensial', 'laporan_frekuensi', 'laporan_poisson', 'laporan_square'];
+$data = [];
+
+foreach ($tables as $table) {
+    $query = "SELECT hasil, tanggal, chart_image FROM $table WHERE username = ?";
+    $stmt = $connect->prepare($query);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $data[$table][] = $row; // Store results by table
+        }
+    } else {
+        $data[$table] = []; // No results for this table
+    }
+}
+
+// Tampilkan data untuk setiap tabel
+foreach ($data as $table => $rows) {
+    echo "<h2>" . ucfirst(str_replace('_', ' ', $table)) . "</h2>"; // Display table name
+    echo "<table>";
+    echo "<tr><th>No</th><th>Hasil</th><th>Tanggal</th><th>Chart Image</th></tr>";
+    
+    $no = 1;
+    if (!empty($rows)) {
+        foreach ($rows as $row) {
+            echo "<tr>";
+            echo "<td>" . $no++ . "</td>";
+            echo "<td>" . htmlspecialchars($row['hasil']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
+            echo "<td><img src='" . htmlspecialchars($row['chart_image']) . "' alt='Chart Image' class='chart-image' data-full='" . htmlspecialchars($row['chart_image']) . "' onclick='openModal(this)'></td>";
+            echo "</tr>";
+        }
+    } else {
+        echo "<tr><td colspan='4'>Belum ada laporan yang tersedia.</td></tr>";
+    }
+    echo "</table>";
+}
+
+// Tambahkan modal untuk menampilkan gambar penuh
+echo "<div id='myModal' class='modal'>
+    <span class='close' onclick='closeModal()'>&times;</span>
+    <img class='modal-content' id='img01'>
+</div>";
+
+?>
         </div>
     </div>
 </body>
