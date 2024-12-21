@@ -1,0 +1,80 @@
+body {
+    background-color: white;
+}
+
+.profil-wrapper {
+    width: 96.5%;
+    height: 80%;
+    padding: 30px;
+
+}
+
+.profil-wrapper .main-profil {
+    width: 300px;
+    height: 350px;
+    background-color: #eaeaea;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5% 10px;
+}
+
+.main-profil button {
+    width: 100px;
+    height: 25px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 40px;
+    font-size: 10px;
+    color: black;
+}
+
+.main-profil button:hover {
+    background-color: black;
+    color: white;
+}
+
+.atas {
+    margin: 0;
+    padding: 0;
+}
+
+.atas h1 {
+    font-size: 40px;
+    font-family: 'Lalezar', sans-serif;
+    font-style: normal;
+    color: black;
+    margin: 0;
+}
+
+.tengah {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.tengah label{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: start;
+}
+
+.tengah input{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+}
+
+#passwordLabel,
+#passwordInput,
+#passwordButton {
+    display: none;
+}
+
+.bawah {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
