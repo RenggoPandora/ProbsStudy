@@ -272,7 +272,36 @@ include("connect.php");
                 <p><strong>Kesimpulan:</strong> <span id="conclusion"></span></p>
             </div>
         </div>
+        <div class="contoh-soal" id="contoh-soal">
+                    <h1>Contoh Soal dan Jawaban</h1>
+                    <?php
+                    // Query untuk mengambil data soal dan jawaban
+                    $query = "SELECT * FROM soal_square";
+                    $result = mysqli_query($connect, $query);
 
+                    // Cek apakah data tersedia
+                    if (mysqli_num_rows($result) > 0) {
+                        echo "<table border='1' cellspacing='0' cellpadding='10'>";
+                        echo "<tr>
+                              <th>No</th>
+                              <th>Soal</th>
+                              <th>Jawaban</th>
+                              </tr>";
+
+                        $no = 1;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<tr>";
+                            echo "<td>" . $no++ . "</td>";
+                            echo "<td>" . htmlspecialchars($row['soal']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['jawaban']) . "</td>";
+                            echo "</tr>";
+                        }
+                        echo "</table>";
+                    } else {
+                        echo "<p>Tidak ada data soal yang tersedia.</p>";
+                    }
+                    ?>
+                </div>
         <h2>Kalkulator Chi Square</h2>
         <div class="kalkulator-chisquare">
             <?php if (isset($_SESSION['username'])): ?>
