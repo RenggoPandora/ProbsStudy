@@ -17,6 +17,7 @@ include("connect.php");
             padding: 0;
             background-color: #eaeaea;
         }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -25,6 +26,7 @@ include("connect.php");
             padding: 20px 40px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
         .header nav {
             display: flex;
             gap: 10px;
@@ -32,6 +34,7 @@ include("connect.php");
             padding: 10px 20px;
             align-items: center;
         }
+
         .header a {
             color: white;
             text-decoration: none;
@@ -39,10 +42,12 @@ include("connect.php");
             border-radius: 5px;
             transition: background-color 0.3s, transform 0.2s;
         }
+
         .header a:hover {
             background-color: #0056b3;
             transform: scale(1.05);
         }
+
         .dropdown {
             position: relative;
             display: inline-block;
@@ -72,10 +77,13 @@ include("connect.php");
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
         .photo_materi {
             display: flex;
-            justify-content: center;   /* Tambahkan margin jika diperlukan */
+            justify-content: center;
+            /* Tambahkan margin jika diperlukan */
         }
+
         .materi {
             padding: 40px;
             background-color: #ffffff;
@@ -83,23 +91,28 @@ include("connect.php");
             margin: 30px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
+
         .materi h2 {
             font-size: 24px;
             margin-bottom: 10px;
         }
+
         .materi p {
             font-size: 16px;
             margin-bottom: 10px;
         }
+
         .materi ul {
             list-style-type: disc;
             padding-left: 20px;
             margin-bottom: 10px;
         }
+
         .materi li {
             font-size: 16px;
             margin-bottom: 5px;
         }
+
         #penjelasan_metode {
             background-color: #fff;
             border-radius: 8px;
@@ -107,29 +120,38 @@ include("connect.php");
             margin: 30px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         table {
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        table, th, td {
+
+        table,
+        th,
+        td {
             border: 1px solid #ccc;
         }
-        th, td {
+
+        th,
+        td {
             padding: 15px;
             text-align: center;
         }
+
         th {
             background-color: #007bff;
             color: white;
         }
+
         .result {
             margin-top: 20px;
             padding: 15px;
             background-color: #e9ecef;
             border: 1px solid #ced4da;
         }
+
         .kalkulator-chisquare {
             margin-top: 20px;
             padding: 40px;
@@ -165,18 +187,20 @@ include("connect.php");
             background-color: #218838;
             transform: scale(1.05);
         }
+
         .data-inputs {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
+
         canvas {
             font-family: 'Roboto', sans-serif;
-        aspect-ratio: 1 / 1;
-        display: block;
-        box-sizing: border-box;
-        height: 500px;
-        width: 500px;
+            aspect-ratio: 1 / 1;
+            display: block;
+            box-sizing: border-box;
+            height: 500px;
+            width: 500px;
         }
     </style>
 </head>
@@ -272,7 +296,34 @@ include("connect.php");
                 <p><strong>Kesimpulan:</strong> <span id="conclusion"></span></p>
             </div>
         </div>
+        <h2>Daftar Soal dan Jawaban</h2>
+        <?php
+        // Query untuk mengambil data soal dan jawaban
+        $query = "SELECT * FROM soal_frekuensi";
+        $result = mysqli_query($connect, $query);
 
+        // Cek apakah data tersedia
+        if (mysqli_num_rows($result) > 0) {
+            echo "<table border='1' cellspacing='0' cellpadding='10'>";
+            echo "<tr>
+                <th>No</th>
+                <th>Soal</th>
+                <th>Jawaban</th>
+              </tr>";
+
+            $no = 1;
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>";
+                echo "<td>" . $no++ . "</td>";
+                echo "<td>" . htmlspecialchars($row['soal']) . "</td>";
+                echo "<td>" . htmlspecialchars($row['jawaban']) . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "<p>Tidak ada data soal yang tersedia.</p>";
+        }
+        ?>
         <h2>Kalkulator Chi Square</h2>
         <div class="kalkulator-chisquare">
             <?php if (isset($_SESSION['username'])): ?>
@@ -301,87 +352,87 @@ include("connect.php");
                     const chiSquareChart = document.getElementById('chiSquareChart');
 
                     function generateTable() {
-                    const rows = parseInt(document.getElementById('rows').value);
-                    const cols = parseInt(document.getElementById('cols').value);
+                        const rows = parseInt(document.getElementById('rows').value);
+                        const cols = parseInt(document.getElementById('cols').value);
 
-                    let tableHTML = '<table><thead><tr>';
-                    for (let i = 0; i < cols; i++) {
-                        tableHTML += `<th>Kolom ${i+1}</th>`;
-                    }
-                    tableHTML += '</tr></thead><tbody>';
-
-                    for (let i = 0; i < rows; i++) {
-                        tableHTML += `<tr>`;
-                        for (let j = 0; j < cols; j++) {
-                            tableHTML += `<td><input type="number" class="observed"></td>`;
+                        let tableHTML = '<table><thead><tr>';
+                        for (let i = 0; i < cols; i++) {
+                            tableHTML += `<th>Kolom ${i+1}</th>`;
                         }
-                        tableHTML += `</tr>`;
-                    }
+                        tableHTML += '</tr></thead><tbody>';
 
-                    tableHTML += '</tbody></table>';
-                    tableContainer.innerHTML = tableHTML;
+                        for (let i = 0; i < rows; i++) {
+                            tableHTML += `<tr>`;
+                            for (let j = 0; j < cols; j++) {
+                                tableHTML += `<td><input type="number" class="observed"></td>`;
+                            }
+                            tableHTML += `</tr>`;
+                        }
+
+                        tableHTML += '</tbody></table>';
+                        tableContainer.innerHTML = tableHTML;
                     }
 
                     function calculateChiSquare() {
-                    const table = document.querySelector('table');
-                    const rows = table.rows;
-                    const cols = table.rows[0].cells.length;
-                    let observed = [];
+                        const table = document.querySelector('table');
+                        const rows = table.rows;
+                        const cols = table.rows[0].cells.length;
+                        let observed = [];
 
-                    for (let i = 1; i < rows.length; i++) {
-                        let row = [];
-                        for (let j = 0; j < cols; j++) {
-                            row.push(parseFloat(rows[i].cells[j].querySelector('input').value));
+                        for (let i = 1; i < rows.length; i++) {
+                            let row = [];
+                            for (let j = 0; j < cols; j++) {
+                                row.push(parseFloat(rows[i].cells[j].querySelector('input').value));
+                            }
+                            observed.push(row);
                         }
-                        observed.push(row);
-                    }
 
-                    let rowTotals = [];
-                    let colTotals = [];
-                    let grandTotal = 0;
+                        let rowTotals = [];
+                        let colTotals = [];
+                        let grandTotal = 0;
 
-                    for (let i = 0; i < rows.length - 1; i++) {
-                        let rowTotal = 0;
-                        for (let j = 0; j < cols; j++) {
-                            rowTotal += observed[i][j];
-                            grandTotal += observed[i][j];
+                        for (let i = 0; i < rows.length - 1; i++) {
+                            let rowTotal = 0;
+                            for (let j = 0; j < cols; j++) {
+                                rowTotal += observed[i][j];
+                                grandTotal += observed[i][j];
+                            }
+                            rowTotals.push(rowTotal);
                         }
-                        rowTotals.push(rowTotal);
-                    }
 
-                    for (let j = 0; j < cols; j++) {
-                        let colTotal = 0;
+                        for (let j = 0; j < cols; j++) {
+                            let colTotal = 0;
+                            for (let i = 0; i < rows - 1; i++) {
+                                colTotal += observed[i][j];
+                            }
+                            colTotals.push(colTotal);
+                        }
+
+                        let expected = [];
                         for (let i = 0; i < rows - 1; i++) {
-                            colTotal += observed[i][j];
+                            expected.push([]);
+                            for (let j = 0; j < cols; j++) {
+                                expected[i][j] = (rowTotals[i] * colTotals[j]) / grandTotal;
+                            }
                         }
-                        colTotals.push(colTotal);
-                    }
 
-                    let expected = [];
-                    for (let i = 0; i < rows - 1; i++) {
-                    expected.push([]);
-                        for (let j = 0; j < cols; j++) {
-                            expected[i][j] = (rowTotals[i] * colTotals[j]) / grandTotal;
+                        let chiSquare = 0;
+                        for (let i = 0; i < rows - 1; i++) {
+                            for (let j = 0; j < cols; j++) {
+                                chiSquare += Math.pow(observed[i][j] - expected[i][j], 2) / expected[i][j];
+                            }
                         }
-                    }
 
-                    let chiSquare = 0;
-                    for (let i = 0; i < rows - 1; i++) {
-                        for (let j = 0; j < cols; j++) {
-                            chiSquare += Math.pow(observed[i][j] - expected[i][j], 2) / expected[i][j];
-                        }
-                    }
+                        const df = (rows - 1) * (cols - 1);
 
-                    const df = (rows - 1) * (cols - 1);
-
-                    chiSquareValue.textContent = chiSquare.toFixed(2);
-                    dfValue.textContent = df;
+                        chiSquareValue.textContent = chiSquare.toFixed(2);
+                        dfValue.textContent = df;
 
                     }
                     if (chiSquare > criticalValue) {
-                    conclusion.textContent = 'Tolak H0: Ada perbedaan signifikan.';
+                        conclusion.textContent = 'Tolak H0: Ada perbedaan signifikan.';
                     } else {
-                    conclusion.textContent = 'Gagal tolak H0: Tidak ada perbedaan signifikan.';
+                        conclusion.textContent = 'Gagal tolak H0: Tidak ada perbedaan signifikan.';
                     }
 
                     document.getElementById('generateTable').addEventListener('click', generateTable);
@@ -395,4 +446,5 @@ include("connect.php");
         </div>
     </div>
 </body>
+
 </html>
