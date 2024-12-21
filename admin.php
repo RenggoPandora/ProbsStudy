@@ -17,6 +17,57 @@ if (isset($_POST['submit_regresi'])) {
     }
 }
 
+if (isset($_POST['submit_poisson'])) {
+    $id_soal = $_POST['id_soal'];
+    $soal = $_POST['soal'];
+    $jawaban = $_POST['jawaban'];
+
+    $query = "INSERT INTO soal_poisson (id_soal, soal, jawaban) VALUES ('$id_soal', '$soal', '$jawaban')";
+    if (mysqli_query($connect, $query)) {
+        echo "Soal Poisson berhasil ditambahkan!";
+    } else {
+        echo "Error: " . mysqli_error($connect);
+    }
+}
+
+if (isset($_POST['submit_eksponensial'])) {
+    $id_soal = $_POST['id_soal'];
+    $soal = $_POST['soal'];
+    $jawaban = $_POST['jawaban'];
+
+    $query = "INSERT INTO soal_eksponensial (id_soal, soal, jawaban) VALUES ('$id_soal', '$soal', '$jawaban')";
+    if (mysqli_query($connect, $query)) {
+        echo "Soal Eksponensial berhasil ditambahkan!";
+    } else {
+        echo "Error: " . mysqli_error($connect);
+    }
+}
+
+if (isset($_POST['submit_square'])) {
+    $id_soal = $_POST['id_soal'];
+    $soal = $_POST['soal'];
+    $jawaban = $_POST['jawaban'];
+
+    $query = "INSERT INTO soal_square (id_soal, soal, jawaban) VALUES ('$id_soal', '$soal', '$jawaban')";
+    if (mysqli_query($connect, $query)) {
+        echo "Soal Square berhasil ditambahkan!";
+    } else {
+        echo "Error: " . mysqli_error($connect);
+    }
+}
+
+if (isset($_POST['submit_frekuensi'])) {
+    $id_soal = $_POST['id_soal'];
+    $soal = $_POST['soal'];
+    $jawaban = $_POST['jawaban'];
+
+    $query = "INSERT INTO soal_frekuensi (id_soal, soal, jawaban) VALUES ('$id_soal', '$soal', '$jawaban')";
+    if (mysqli_query($connect, $query)) {
+        echo "Soal Frekuensi berhasil ditambahkan!";
+    } else {
+        echo "Error: " . mysqli_error($connect);
+    }
+}
 // Similar CRUD operations for other question types (Poisson, Eksponensial, Square, Frekuensi)
 // ...
 

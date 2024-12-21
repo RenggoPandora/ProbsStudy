@@ -20,13 +20,13 @@ include ("connect.php");
             border: none;
             outline: none;
             scroll-behavior: smooth;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
 
         :root {
-            --bg-color: #000; /* Black background */
+            --bg-color:#eaeaea;; /* Black background */
             --second-bg-color: #fff; /* White background */
-            --text-color: #fff; /* White text */
+            --text-color: #000000; /* White text */
             --main-color: #ccc; /* Light gray for accents */
         }
 
@@ -102,47 +102,7 @@ include ("connect.php");
             align-items: center;
         }
 
-        .home-img img {
-            width: 33vw;
-            animation: floatimage 4s ease-in-out infinite;
-        }
-
-        @keyframes floatimage {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-2.4rem);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        .home-content h3 {
-            font-size: 3.2rem;
-            font-weight: 700;
-        }
-
-        .home-content h3:nth-of-type(2) {
-            margin-bottom: 2rem;
-        }
-
-        span {
-            color: var(--main-color);
-        }
-
-        .home-content h1 {
-            font-size: 5.6rem;
-            font-weight: 700;
-            line-height: 1.3;
-        }
-
-        .home-content p {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-        }
-
+        
         .btn {
             display: inline-block;
             padding: 1rem 2.8rem;
@@ -480,20 +440,10 @@ include ("connect.php");
     <!-- header karo navbar -->
 
     <!-- Bagian Home -->
-    <section class="home" id="home" style="margin-top: -50px;"> <!-- Adjusted margin to move section up -->
-        <div class="home-content">
-            <h3>ProbStudy</h3>
-            <h1>Sebaran Peluang Diskrit (Poisson)</h1>
-            <h3>Kelompok <span>Tiga</span></h3>
-            <p>Dalam teori probabilitas dan statistika, distribusi Poisson adalah distribusi probabilitas diskret yang menyatakan peluang jumlah peristiwa yang terjadi pada periode waktu tertentu apabila rata-rata kejadian tersebut diketahui dan dalam waktu yang saling bebas sejak kejadian terakhir.</p>
-
-            <a href="refut.pdf" download="refut.pdf" class="btn">Refrensi Utama</a>
-        </div>
-
-        <div class="home-img">
-            <img src="images/aku.png" alt="">
-        </div>
-    </section>
+    <div class="home-img" style="display: flex; justify-content: center; align-items: center;">
+           <img src="assets/poisson.png" alt="">
+       </div>
+   </section>
     <!-- Bagian Home -->
 
     <!-- Bagian materi -->
@@ -553,7 +503,7 @@ include ("connect.php");
     <!-- Bagian materi -->
 
     <!-- Bagian contoh -->
-    <h2>Daftar Soal dan Jawaban</h2>
+    <h2 style="font-size: 4rem; text-align: center;">Daftar Soal dan Jawaban</h2>
     <style>
        /* Add this CSS for table styling */
        table {
@@ -610,7 +560,7 @@ include ("connect.php");
 
     <!-- Bagian proyek -->
     <section class="proyek" id="proyek">
-        <h2 class="heading">Proyek <span>Probstat</span></h2>
+        <h2 class="heading" style="font-size: 4rem; text-align: center;"                    >Proyek <span>Probstat</span></h2>
 
         <h2 class="judul-proyek">Sebaran Peluang Diskrit (Poisson)</h2>
 
