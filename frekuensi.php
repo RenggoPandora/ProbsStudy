@@ -528,62 +528,7 @@ include ("connect.php");
             </li>
         </ol>
 
-    <script>
-        // Data X dan Y
-        const data = [
-            {X: 1, Y: 60},
-            {X: 2, Y: 65},
-            {X: 3, Y: 70},
-            {X: 4, Y: 75},
-            {X: 5, Y: 80}
-        ];
 
-        // Menghitung rata-rata X dan Y
-        const averageX = data.reduce((sum, item) => sum + item.X, 0) / data.length;
-        const averageY = data.reduce((sum, item) => sum + item.Y, 0) / data.length;
-
-        // Menghitung b dan a
-        let numerator = 0, denominator = 0;
-        data.forEach(item => {
-            const diffX = item.X - averageX;
-            const diffY = item.Y - averageY;
-            numerator += diffX * diffY;
-            denominator += diffX * diffX;
-        });
-
-        const b = numerator / denominator;
-        const a = averageY - b * averageX;
-
-        // Menampilkan data di tabel
-        const dataTable = document.getElementById('data-table');
-        data.forEach(item => {
-            const diffX = item.X - averageX;
-            const diffY = item.Y - averageY;
-            const multiplyDiff = diffX * diffY;
-            const squareDiffX = diffX * diffX;
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.X}</td>
-                <td>${item.Y}</td>
-                <td>${diffX.toFixed(2)}</td>
-                <td>${diffY.toFixed(2)}</td>
-                <td>${multiplyDiff.toFixed(2)}</td>
-                <td>${squareDiffX.toFixed(2)}</td>
-            `;
-            dataTable.appendChild(row);
-        });
-
-        // Menampilkan persamaan regresi
-        const equationElement = document.getElementById('equation');
-        equationElement.innerText = `y = ${a.toFixed(2)} + ${b.toFixed(2)}X`;
-
-        // Menghitung dan menampilkan prediksi untuk X = 6
-        const predictedY = a + b * 6;
-        const predictionElement = document.getElementById('prediction');
-        predictionElement.innerText = `y = ${predictedY.toFixed(2)}`;
-
-    </script>
 
     <h2>Daftar Soal dan Jawaban</h2>
     <?php
@@ -614,120 +559,98 @@ include ("connect.php");
     }
     ?>
 
-    <h2>Histogram Data Kelompok Generator </h2>
-    <div class="h-input-container">
+    <h2>Histogram Data Kelompok Generator</h2>
+    <label for="data">Masukkan Data Angka (pisahkan dengan spasi):</label><br>
+    <div class="input-container">
         <?php if (isset($_SESSION['username'])): ?>
         <label for="data">Masukkan Data Angka (pisahkan dengan spasi):</label><br>
-        <textarea id="data" rows="5" cols="50" placeholder="Contoh: 10 20 30 40 50 60 70"></textarea><br>            
+        <textarea id="data" rows="5" cols="50" placeholder="Contoh: 10 20 30 40 50 60 70"></textarea><br>
         <button id="generateBtn">Generate Histogram</button>
+        <button id="saveBtn" style="display:none;">Save Histogram</button>
+    </div>
+    <div class="histogram-container">
+        <h3>Histogram:</h3>
+        <canvas id="histogramCanvas" width="900" height="700"></canvas>
+    </div>
 
-        <div class="h-container">
-            <h3>Histogram: </h3>
-            <div id="Histogram"></div>
-        </div>
+    <script>
+        const canvas = document.getElementById('histogramCanvas');
+        const ctx = canvas.getContext('2d');
 
-            <script>
-                    const canvas = document.getElementById('histogramCanvas');
-                    const ctx = canvas.getContext('2d');
-            
-                    document.getElementById('generateBtn').addEventListener('click', function() {
-                        var dataInput = document.getElementById('data').value;
-                        var data = dataInput.split(' ').map(Number).filter(num => !isNaN(num) && num > 0);
-                        if (data.length === 0) {
-                            alert("Mohon masukkan angka yang valid.");
-                            return;
-                        }
-            
-                        generateHistogram(data);
-                        document.getElementById('saveBtn').style.display = 'inline-block'; // Show save button after generation
-                    });
-            
-                    document.getElementById('saveBtn').addEventListener('click', function() {
-                        // Convert canvas to base64 string
-                        var imageData = canvas.toDataURL("image/png");
-            
-                        // Upload to GitHub
-                        uploadToGitHub(imageData);
-                    });
-            
-                    function generateHistogram(data) {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous histogram
-            
-                        // Calculate bin count using Sturges' formula
-                        const binCount = Math.round(1 + 3.3 * Math.log10(data.length));
-                        const min = Math.min(...data);
-                        const max = Math.max(...data);
-                        const range = max - min;
-                        const binWidth = Math.ceil(range / binCount);
-            
-                        // Initialize bins
-                        const bins = Array(binCount).fill(0);
-                        data.forEach(value => {
-                            let index = Math.floor((value - min) / binWidth);
-                            if (index >= binCount) index = binCount - 1;
-                            bins[index]++;
-                        });
-            
-                        // Determine maximum frequency for scaling
-                        const maxFrequency = Math.max(...bins);
-                        const barWidth = canvas.width / binCount; // Width of each bar
-                        const containerHeight = canvas.height;
-            
-                        // Draw histogram bars
-                        bins.forEach((frequency, i) => {
-                            const barHeight = (frequency / maxFrequency) * containerHeight;
-                            const binStart = min + i * binWidth;
-                            const binEnd = binStart + binWidth - 1;
-            
-                            // Draw bars
-                            ctx.fillStyle = 'lightpink';
-                            ctx.fillRect(i * barWidth, containerHeight - barHeight, barWidth - 1, barHeight);
-            
-                            // Draw frequency label
-                            ctx.fillStyle = 'black';
-                            ctx.font = '12px Arial';
-                            ctx.fillText(frequency, i * barWidth + barWidth / 2 - 10, containerHeight - barHeight - 5);
-            
-                            // Draw bin range label
-                            ctx.fillText(`${binStart} - ${binEnd}`, i * barWidth + barWidth / 2 - 10, containerHeight - 5);
-                        });
-                    }
-            
-                    function uploadToGitHub(imageData) {
-                        const token = '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'; // Replace with your GitHub personal access token
-                        const repoOwner = 'RenggoPandora'; // Replace with your GitHub username
-                        const repoName = 'ProbStudy'; // Replace with your repository name
-                        const filePath = 'folder-name/histogram.png'; // Path within the repo where the file will be stored
-            
-                        const data = {
-                            message: 'Add histogram image',
-                            content: imageData.split(',')[1], // Base64 encoded image data
-                            branch: 'main' // Branch name (default is usually 'main')
-                        };
-            
-                        const apiUrl = `https://api.github.com/repos/${RenggoPandora}/${ProbStudy}/contents/${images/histogra.png}`;
-                        
-                        fetch(apiUrl, {
-                            method: 'PUT',
-                            headers: {
-                                'Authorization': `token ${token}`,
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(data)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.content) {
-                                alert('Histogram saved');
-                            } else {
-                                alert('Error saving: ' + data.message);
-                            }
-                        })
-                        .catch(error => {
-                            alert('An error occurred: ' + error.message);
-                        });
-                    }
-            </script>
+        document.getElementById('generateBtn').addEventListener('click', function() {
+            var dataInput = document.getElementById('data').value;
+            var data = dataInput.split(' ').map(Number).filter(num => !isNaN(num) && num > 0);
+            if (data.length === 0) {
+                alert("Mohon masukkan angka yang valid.");
+                return;
+            }
+
+            generateHistogram(data);
+            document.getElementById('saveBtn').style.display = 'inline-block'; // Show save button after generation
+        });
+
+        document.getElementById('saveBtn').addEventListener('click', function() {
+            // Convert canvas to base64 string
+            var imageData = canvas.toDataURL("image/png");
+
+            // Save the image data (this can be sent to a server or saved locally)
+            saveHistogramImage(imageData);
+        });
+
+        function generateHistogram(data) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous histogram
+
+            // Calculate bin count using Sturges' formula
+            const binCount = Math.round(1 + 3.3 * Math.log10(data.length));
+            const min = Math.min(...data);
+            const max = Math.max(...data);
+            const range = max - min;
+            const binWidth = Math.ceil(range / binCount);
+
+            // Initialize bins
+            const bins = Array(binCount).fill(0);
+            data.forEach(value => {
+                let index = Math.floor((value - min) / binWidth);
+                if (index >= binCount) index = binCount - 1;
+                bins[index]++;
+            });
+
+            // Determine maximum frequency for scaling
+            const maxFrequency = Math.max(...bins);
+            const barWidth = canvas.width / binCount; // Width of each bar
+            const containerHeight = canvas.height;
+
+            // Draw histogram bars
+            bins.forEach((frequency, i) => {
+                const barHeight = (frequency / maxFrequency) * containerHeight;
+                const binStart = min + i * binWidth;
+                const binEnd = binStart + binWidth - 1;
+
+                // Draw bars
+                ctx.fillStyle = 'lightpink';
+                ctx.fillRect(i * barWidth, containerHeight - barHeight, barWidth - 1, barHeight);
+
+                // Draw frequency label at the top inside the bar
+                ctx.fillStyle = 'black';
+                ctx.font = '12px Arial';
+                const textXPosition = i * barWidth + barWidth - 20;
+                const textYPosition = containerHeight - barHeight + 15;
+                ctx.fillText(frequency, textXPosition, textYPosition);
+
+                // Draw bin range label below the bar
+                ctx.fillText(`${binStart} - ${binEnd}`, i * barWidth + barWidth / 2 - 10, containerHeight - 5);
+            });
+        }
+
+        function saveHistogramImage(imageData) {
+            // Create an anchor element to trigger a download
+            const a = document.createElement('a');
+            a.href = imageData;
+            a.download = 'histogram.png'; // Set the file name for download
+            a.click(); // Trigger the download
+        }
+    </script>
+
         <?php else: ?>
             <div class="login-message" style="text-align: center; margin: 20px; padding: 15px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px;">
     <p>Anda harus login untuk mengakses Histogram.</p>
@@ -737,5 +660,3 @@ include ("connect.php");
 </div>
 </body>
 </html>
-    
-    
