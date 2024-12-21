@@ -74,9 +74,7 @@ include("connect.php");
                         <h2>Rumus CDF</h2>
                         <img src="assets/cdf_eksponensial.jpg" alt="">
                         <ul>
-                            <li>X = bla bla bla</li>
-                            <li>X = bla bla bla</li>
-                            <li>X = bla bla bla</li>
+                            <li>e = bilangan eunel</li>
                         </ul>
                     </div>
                     <p>CDF (Cumulative Distribution Function) berperan untuk menghitung peluang kumulatif, yaitu peluang bahwa nilai dari suatu variabel acak X kurang dari atau sama dengan suatu nilai tertentu x.</p>
@@ -90,13 +88,6 @@ include("connect.php");
                         <li>Masukan kedalam rumus CDF</li>
                         <li>Buat angka menjadi presentase</li>
                     </ol>
-                    <div class="contoh">
-                        <h1>Contoh pengerjaan Sebaran Peluang Distribusi Eksponensial</h1>
-                        <div class="card">
-                            <p><strong>Soal</strong></p>
-                            <p></p>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="contoh-soal" id="contoh-soal">
