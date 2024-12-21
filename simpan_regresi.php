@@ -191,6 +191,8 @@ if (mysqli_query($connect, $sql)) {
     echo "<p>Hasil: $hasil_regresi</p>";
     echo "<p>Data berhasil disimpan ke database.</p>";
     echo "<img src='$imagePath' alt='Grafik Regresi'>"; // Display the saved image
+    header("Location : regresi.php");
+    exit;
 } else {
     echo "Gagal menyimpan data: " . mysqli_error($connect);
 }

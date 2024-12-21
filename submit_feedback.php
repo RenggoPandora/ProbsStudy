@@ -16,6 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($connect->query($sql) === TRUE) {
             echo "Umpan balik berhasil dikirim!";
+            header("Location : home1.php");
+            exit();
         } else {
             echo "Error: " . $sql . "<br>" . $connect->error;
         }
